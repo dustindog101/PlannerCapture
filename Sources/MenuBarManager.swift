@@ -73,6 +73,9 @@ struct MenuContentView: View {
                     Text(store.isConnected ? "Connected" : "Disconnected")
                         .font(.caption)
                         .foregroundColor(store.isConnected ? .green : .red)
+                    Text(summaryLine)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
                 }
                 Spacer()
                 Button("Planner") { PlannerWindowController.shared.show() }
@@ -107,6 +110,13 @@ struct MenuContentView: View {
         }
         .frame(width: 420, height: 540)
         .background(.regularMaterial)
+    }
+
+    private var summaryLine: String {
+        let active = store.tasks.filter { $0.status != .done && $0.status != .archived }.count
+        let waiting = store.tasks.filter { $0.status == .inbox }.count
+        let done = store.tasks.filter { $0.status == .done }.count
+        return "Active \(active) · Waiting \(waiting) · Done \(done)"
     }
 }
 

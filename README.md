@@ -23,8 +23,12 @@ Type inside the hotkey popup (`Cmd+Shift+Space`):
 - `#star` or `*`: star task.
 - `::`: split title and notes.
 - `/done <title>`: create completed task.
-- `/block <title>`: create blocked task.
+- `/todo <title>`: create todo task.
+- `/inbox <title>`: create waiting task.
+- `/blocked <title>` or `/block <title>`: create blocked task.
 - `/inprogress <title>`: create in-progress task.
+- `/archived <title>`: create archived task.
+- `#g:<group-name>`: assign task to an existing group.
 
 Examples:
 
@@ -32,6 +36,7 @@ Examples:
 - `! call mechanic :: ask for quote`
 - `#p4 study for monday exam :: review chapter 3`
 - `/done submit article review`
+- `/inbox review lecture slides #g:School`
 
 ## Prerequisites
 
@@ -73,9 +78,11 @@ Configure runtime options in **Settings** from the menubar. Settings are organiz
 Open **Planner** from the menubar for the remodeled manager window:
 
 - `Tasks` tab: clean task list + inspector editing.
-- `Groups` tab: add and remove groups directly.
-- `Overview` tab: high-level task/group status.
+- `Groups` tab: add, rename, and remove groups directly.
+- `Settings` tab: full settings editor in-app.
 - Balanced Apple-style glass materials and clear typography across panes.
+- Status updates move tasks into their destination section and keep selection on the same task.
+- Row-star toggles sync to inspector state immediately (with rollback on failure).
 
 ## Troubleshooting
 
@@ -85,6 +92,8 @@ Open **Planner** from the menubar for the remodeled manager window:
 - Use **Logs** button in popover to open `plannercapture.log` for detailed errors.
 - Use **Copy Last Error** in settings to copy recent warning/error lines to clipboard.
 - If you need the old planner view temporarily, disable **Enable remodeled planner UI** in `General` settings.
+- Unknown capture commands are treated as plain task text and logged as warnings.
+- Unknown `#g:<name>` values create tasks ungrouped and log a warning.
 - Correlate failures by request ID:
   - PlannerCapture logs include `request_id`.
   - Gateway responses include `request_id` and `X-Request-Id`.

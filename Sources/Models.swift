@@ -34,6 +34,7 @@ struct PlannerTask: Identifiable, Equatable, Decodable {
     var priority: Int
     var isStarred: Bool
     var source: String
+    var sourceRef: String
     var groupId: String?
     var dueAt: Int?
     var updatedAt: Int
@@ -50,6 +51,7 @@ struct PlannerTask: Identifiable, Equatable, Decodable {
         case priority
         case isStarred = "is_starred"
         case source
+        case sourceRef = "source_ref"
         case groupId = "group_id"
         case dueAt = "due_at"
         case updatedAt = "updated_at"
@@ -64,6 +66,7 @@ struct PlannerTask: Identifiable, Equatable, Decodable {
         self.status = (try? c.decode(TaskStatus.self, forKey: .status)) ?? .todo
         self.priority = (try? c.decode(Int.self, forKey: .priority)) ?? 0
         self.source = (try? c.decode(String.self, forKey: .source)) ?? "unknown"
+        self.sourceRef = (try? c.decode(String.self, forKey: .sourceRef)) ?? ""
         self.groupId = try? c.decodeIfPresent(String.self, forKey: .groupId)
         self.dueAt = try? c.decodeIfPresent(Int.self, forKey: .dueAt)
         self.updatedAt = (try? c.decode(Int.self, forKey: .updatedAt)) ?? Int(Date().timeIntervalSince1970)
@@ -130,6 +133,7 @@ struct TaskEditDraft: Equatable {
     var isStarred: Bool
     var groupId: String?
     var dueAt: Int?
+    var sourceRef: String
 
     init(task: PlannerTask) {
         title = task.title
@@ -139,9 +143,10 @@ struct TaskEditDraft: Equatable {
         isStarred = task.isStarred
         groupId = task.groupId
         dueAt = task.dueAt
+        sourceRef = task.sourceRef
     }
 
-    init(title: String, notes: String, status: TaskStatus, priority: Int, isStarred: Bool, groupId: String?, dueAt: Int?) {
+    init(title: String, notes: String, status: TaskStatus, priority: Int, isStarred: Bool, groupId: String?, dueAt: Int?, sourceRef: String) {
         self.title = title
         self.notes = notes
         self.status = status
@@ -149,6 +154,7 @@ struct TaskEditDraft: Equatable {
         self.isStarred = isStarred
         self.groupId = groupId
         self.dueAt = dueAt
+        self.sourceRef = sourceRef
     }
 
     func isDifferent(from task: PlannerTask) -> Bool {
@@ -158,7 +164,8 @@ struct TaskEditDraft: Equatable {
             priority != task.priority ||
             isStarred != task.isStarred ||
             groupId != task.groupId ||
-            dueAt != task.dueAt
+            dueAt != task.dueAt ||
+            sourceRef != task.sourceRef
     }
 
     func patchFields() -> [String: Any] {
@@ -169,7 +176,8 @@ struct TaskEditDraft: Equatable {
             "priority": max(0, min(priority, 4)),
             "is_starred": isStarred ? 1 : 0,
             "group_id": groupId as Any,
-            "due_at": dueAt as Any
+            "due_at": dueAt as Any,
+            "source_ref": sourceRef.trimmingCharacters(in: .whitespacesAndNewlines)
         ]
     }
 }
@@ -299,6 +307,10 @@ final class GatewayClient {
         requestJSON(path: "/v1/groups", method: "POST", payload: payload, responseType: GroupResponse.self, completion: completion)
     }
 
+    func patchGroup(groupId: String, fields: [String: Any], completion: @escaping (Result<GroupResponse, GatewayError>) -> Void) {
+        requestJSON(path: "/v1/groups/\(groupId)", method: "PATCH", payload: fields, responseType: GroupResponse.self, completion: completion)
+    }
+
     func archiveGroup(groupId: String, completion: @escaping (Result<GroupResponse, GatewayError>) -> Void) {
         request(path: "/v1/groups/\(groupId)/archive", method: "POST", body: nil, responseType: GroupResponse.self, completion: completion)
     }
@@ -310,6 +322,8 @@ final class GatewayClient {
         priority: Int,
         isStarred: Bool,
         source: String,
+        groupId: String?,
+        sourceRef: String?,
         completion: @escaping (Result<(task: PlannerTask, latestSeq: Int), GatewayError>) -> Void
     ) {
         let payload: [String: Any] = [
@@ -319,7 +333,8 @@ final class GatewayClient {
             "priority": max(0, min(priority, 4)),
             "is_starred": isStarred ? 1 : 0,
             "source": source,
-            "group_id": SettingsStore.shared.settings.defaultGroupId as Any
+            "group_id": groupId as Any,
+            "source_ref": sourceRef as Any
         ]
         requestJSON(path: "/v1/tasks", method: "POST", payload: payload, responseType: TaskResponse.self) { result in
             completion(result.map { ($0.task, $0.latestSeq) })
@@ -498,16 +513,21 @@ final class TaskStore: ObservableObject {
         priority: Int = 2,
         isStarred: Bool = false,
         status: TaskStatus? = nil,
-        source: String = "menubar"
+        source: String = "menubar",
+        groupId: String? = nil,
+        sourceRef: String? = nil
     ) {
         let resolvedStatus = status ?? SettingsStore.shared.settings.defaultStatus
+        let resolvedGroup = groupId ?? SettingsStore.shared.settings.defaultGroupId
         client.createTask(
             title: title,
             notes: notes,
             status: resolvedStatus,
             priority: priority,
             isStarred: isStarred,
-            source: source
+            source: source,
+            groupId: resolvedGroup,
+            sourceRef: sourceRef
         ) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self else { return }
@@ -515,7 +535,7 @@ final class TaskStore: ObservableObject {
                 case .success(let created):
                     self.lastSeenSeq = max(self.lastSeenSeq, created.latestSeq)
                     self.markHealthyConnection()
-                    self.loadTasks()
+                    self.applyServerTaskUpdate(created.task)
 
                     if SettingsStore.shared.settings.mirrorCLI {
                         let cliText = notes.isEmpty ? title : "\(title) :: \(notes)"
@@ -544,7 +564,7 @@ final class TaskStore: ObservableObject {
                     ])
                     self.lastSeenSeq = max(self.lastSeenSeq, out.latestSeq)
                     self.markHealthyConnection()
-                    self.loadTasks()
+                    self.applyServerTaskUpdate(out.task)
                 case .failure(let error):
                     PlannerLogger.shared.log(.error, "Task action failed", metadata: [
                         "action": "archive",
@@ -583,7 +603,7 @@ final class TaskStore: ObservableObject {
                         ])
                         self.lastSeenSeq = max(self.lastSeenSeq, out.latestSeq)
                         self.markHealthyConnection()
-                        self.loadTasks()
+                        self.applyServerTaskUpdate(out.task)
                     case .failure(let error):
                         PlannerLogger.shared.log(.error, "Task action failed", metadata: [
                             "action": "toggle",
@@ -609,7 +629,7 @@ final class TaskStore: ObservableObject {
                         ])
                         self.lastSeenSeq = max(self.lastSeenSeq, out.latestSeq)
                         self.markHealthyConnection()
-                        self.loadTasks()
+                        self.applyServerTaskUpdate(out.task)
                     case .failure(let error):
                         PlannerLogger.shared.log(.error, "Task action failed", metadata: [
                             "action": "toggle",
@@ -624,7 +644,10 @@ final class TaskStore: ObservableObject {
     }
 
     func saveTaskEdits(taskId: String, draft: TaskEditDraft, completion: @escaping (Result<Void, GatewayError>) -> Void) {
-        guard beginAction(taskId: taskId, action: "edit") else { return }
+        guard beginAction(taskId: taskId, action: "edit") else {
+            completion(.failure(.transport("task action already in flight")))
+            return
+        }
         PlannerLogger.shared.log(.info, "Task action started", metadata: [
             "action": "edit",
             "task_id": taskId,
@@ -642,9 +665,9 @@ final class TaskStore: ObservableObject {
                         "task_id": taskId,
                         "status": out.task.status.rawValue
                     ])
-                    self.lastSeenSeq = max(self.lastSeenSeq, out.latestSeq)
-                    self.markHealthyConnection()
-                    self.loadTasks()
+                        self.lastSeenSeq = max(self.lastSeenSeq, out.latestSeq)
+                        self.markHealthyConnection()
+                        self.applyServerTaskUpdate(out.task)
                     completion(.success(()))
                 case .failure(let error):
                     PlannerLogger.shared.log(.error, "Task action failed", metadata: [
@@ -659,9 +682,12 @@ final class TaskStore: ObservableObject {
         }
     }
 
-    func toggleStar(taskId: String) {
+    func toggleStar(taskId: String, completion: ((Result<Bool, GatewayError>) -> Void)? = nil) {
         guard let task = tasks.first(where: { $0.id == taskId }) else { return }
-        guard beginAction(taskId: taskId, action: "toggle_star") else { return }
+        guard beginAction(taskId: taskId, action: "toggle_star") else {
+            completion?(.failure(.transport("task action already in flight")))
+            return
+        }
         let oldValue = task.isStarred
         let newValue = !oldValue
         updateLocalStar(taskId: taskId, isStarred: newValue)
@@ -680,10 +706,12 @@ final class TaskStore: ObservableObject {
                 case .success(let out):
                     self.lastSeenSeq = max(self.lastSeenSeq, out.latestSeq)
                     self.markHealthyConnection()
-                    self.loadTasks()
+                    self.applyServerTaskUpdate(out.task)
+                    completion?(.success(out.task.isStarred))
                 case .failure(let error):
                     self.updateLocalStar(taskId: taskId, isStarred: oldValue)
                     self.handleActionError(taskId: taskId, error: error)
+                    completion?(.failure(error))
                 }
             }
         }
@@ -720,6 +748,31 @@ final class TaskStore: ObservableObject {
 
     func removeGroup(groupId: String, completion: @escaping (Result<Void, GatewayError>) -> Void) {
         client.archiveGroup(groupId: groupId) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                switch result {
+                case .success(let out):
+                    if let seq = out.latestSeq {
+                        self.lastSeenSeq = max(self.lastSeenSeq, seq)
+                    }
+                    self.markHealthyConnection()
+                    self.loadTasks()
+                    completion(.success(()))
+                case .failure(let error):
+                    self.handle(error: error)
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    func renameGroup(groupId: String, name: String, completion: @escaping (Result<Void, GatewayError>) -> Void) {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            completion(.failure(.decode("group name cannot be empty")))
+            return
+        }
+        client.patchGroup(groupId: groupId, fields: ["name": trimmed]) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self else { return }
                 switch result {
@@ -846,6 +899,15 @@ final class TaskStore: ObservableObject {
     private func updateLocalStar(taskId: String, isStarred: Bool) {
         guard let idx = tasks.firstIndex(where: { $0.id == taskId }) else { return }
         tasks[idx].isStarred = isStarred
+        sections = buildSections(from: tasks)
+    }
+
+    private func applyServerTaskUpdate(_ task: PlannerTask) {
+        if let idx = tasks.firstIndex(where: { $0.id == task.id }) {
+            tasks[idx] = task
+        } else {
+            tasks.append(task)
+        }
         sections = buildSections(from: tasks)
     }
 

@@ -36,7 +36,7 @@ final class PlannerWindowController: NSWindowController {
 private enum PlannerPage: String, CaseIterable, Identifiable {
     case tasks
     case groups
-    case overview
+    case settings
 
     var id: String { rawValue }
 
@@ -44,7 +44,7 @@ private enum PlannerPage: String, CaseIterable, Identifiable {
         switch self {
         case .tasks: return "Tasks"
         case .groups: return "Groups"
-        case .overview: return "Overview"
+        case .settings: return "Settings"
         }
     }
 }
@@ -72,8 +72,10 @@ private struct PlannerModernView: View {
     @State private var lastLoadedTaskId: String?
     @State private var isDirty: Bool = false
     @State private var saveMessage: String = ""
+    @State private var moveMessage: String = ""
     @State private var newGroupName: String = ""
     @State private var groupMessage: String = ""
+    @State private var groupDraftNames: [String: String] = [:]
     @State private var searchText: String = ""
     @State private var debounceWorkItem: DispatchWorkItem?
 
@@ -85,8 +87,8 @@ private struct PlannerModernView: View {
                 tasksPage
             case .groups:
                 groupsPage
-            case .overview:
-                overviewPage
+            case .settings:
+                settingsPage
             }
         }
         .padding(10)
@@ -101,17 +103,33 @@ private struct PlannerModernView: View {
             syncDraftToSelection()
         }
         .onChange(of: store.sections) {
+            let previousSectionId = selectedSectionId
             if selectedSectionId == nil || store.sections.first(where: { $0.id == selectedSectionId }) == nil {
                 selectedSectionId = store.sections.first?.id
             }
-            if selectedTaskId == nil || currentTasks().first(where: { $0.id == selectedTaskId }) == nil {
+            if let selectedTaskId,
+               let destination = sectionContaining(taskId: selectedTaskId),
+               destination.id != previousSectionId {
+                selectedSectionId = destination.id
+                moveMessage = "Moved to \(destination.title)."
+            }
+            if selectedTaskId == nil || store.task(id: selectedTaskId ?? "") == nil {
                 selectedTaskId = currentTasks().first?.id
             }
             syncDraftToSelection()
         }
         .onChange(of: selectedSectionId) {
-            selectedTaskId = currentTasks().first?.id
+            if selectedTaskId == nil || currentTasks().first(where: { $0.id == selectedTaskId }) == nil {
+                selectedTaskId = currentTasks().first?.id
+            }
             syncDraftToSelection()
+        }
+        .onChange(of: store.groups) {
+            var copy = groupDraftNames
+            for group in store.groups where copy[group.id] == nil {
+                copy[group.id] = group.name
+            }
+            groupDraftNames = copy
         }
         .onChange(of: selectedTaskId) {
             syncDraftToSelection()
@@ -128,6 +146,10 @@ private struct PlannerModernView: View {
                 .frame(width: 9, height: 9)
 
             Text(store.isConnected ? "Connected" : "Disconnected")
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+            Text(summaryLine)
                 .font(.caption)
                 .foregroundColor(.secondary)
 
@@ -247,13 +269,24 @@ private struct PlannerModernView: View {
                     List {
                         ForEach(store.groups) { group in
                             HStack {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(group.name)
-                                    Text("ID: \(group.id)")
-                                        .font(.caption2)
-                                        .foregroundColor(.secondary)
-                                }
+                                TextField("Group name", text: Binding(
+                                    get: { groupDraftNames[group.id] ?? group.name },
+                                    set: { groupDraftNames[group.id] = $0 }
+                                ))
+                                .textFieldStyle(.roundedBorder)
                                 Spacer()
+                                Button("Rename") {
+                                    let nextName = (groupDraftNames[group.id] ?? group.name).trimmingCharacters(in: .whitespacesAndNewlines)
+                                    store.renameGroup(groupId: group.id, name: nextName) { result in
+                                        switch result {
+                                        case .success:
+                                            groupMessage = "Group renamed."
+                                        case .failure:
+                                            groupMessage = "Failed to rename group."
+                                        }
+                                    }
+                                }
+                                .buttonStyle(.borderless)
                                 Button("Remove") {
                                     store.removeGroup(groupId: group.id) { result in
                                         switch result {
@@ -286,26 +319,8 @@ private struct PlannerModernView: View {
         }
     }
 
-    private var overviewPage: some View {
-        PaneContainer(material: .thinMaterial) {
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Overview")
-                    .font(.headline)
-
-                Text("Total tasks: \(store.tasks.count)")
-                Text("Sections: \(store.sections.count)")
-                Text("Groups: \(store.groups.count)")
-                if let lastSyncAt = store.lastSyncAt {
-                    Text("Last sync: \(absoluteDate(lastSyncAt))")
-                }
-
-                Divider()
-
-                Text("This page is intentionally simple and focused on status.")
-                    .foregroundColor(.secondary)
-                Spacer()
-            }
-        }
+    private var settingsPage: some View {
+        SettingsView()
     }
 
     private func taskRow(_ task: PlannerTask) -> some View {
@@ -332,7 +347,28 @@ private struct PlannerModernView: View {
             Spacer()
 
             Button {
-                store.toggleStar(taskId: task.id)
+                if selectedTaskId == task.id {
+                    draft?.isStarred.toggle()
+                    isDirty = (draft?.isDifferent(from: task) ?? false)
+                }
+                store.toggleStar(taskId: task.id) { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let value):
+                            if selectedTaskId == task.id {
+                                draft?.isStarred = value
+                                if let refreshed = store.task(id: task.id) {
+                                    isDirty = (draft?.isDifferent(from: refreshed) ?? false)
+                                }
+                            }
+                        case .failure:
+                            if selectedTaskId == task.id {
+                                draft?.isStarred = task.isStarred
+                                isDirty = false
+                            }
+                        }
+                    }
+                }
             } label: {
                 Image(systemName: task.isStarred ? "star.fill" : "star")
                     .foregroundColor(task.isStarred ? .yellow : .secondary)
@@ -425,6 +461,14 @@ private struct PlannerModernView: View {
                         }
                     ))
 
+                    TextField("Source reference", text: Binding(
+                        get: { draft.sourceRef },
+                        set: { value in
+                            self.draft?.sourceRef = value
+                            scheduleDirtyCheck(task: task)
+                        }
+                    ))
+
                     Toggle("Has due date", isOn: Binding(
                         get: { draft.dueAt != nil },
                         set: { enabled in
@@ -463,11 +507,17 @@ private struct PlannerModernView: View {
                         self.draft = TaskEditDraft(task: task)
                         self.isDirty = false
                         self.saveMessage = ""
+                        self.moveMessage = ""
                     }
                     Spacer()
                     if !saveMessage.isEmpty {
                         Text(saveMessage)
                             .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    if !moveMessage.isEmpty {
+                        Text(moveMessage)
+                            .font(.caption2)
                             .foregroundColor(.secondary)
                     }
                     Button("Save") {
@@ -518,6 +568,9 @@ private struct PlannerModernView: View {
             isDirty = false
         } else if let draft {
             isDirty = draft.isDifferent(from: task)
+            if !isDirty {
+                self.draft = TaskEditDraft(task: task)
+            }
         }
     }
 
@@ -540,7 +593,8 @@ private struct PlannerModernView: View {
             priority: draft.priority,
             isStarred: draft.isStarred,
             groupId: draft.groupId,
-            dueAt: draft.dueAt
+            dueAt: draft.dueAt,
+            sourceRef: draft.sourceRef
         )
         guard !normalized.title.isEmpty else {
             saveMessage = "Title cannot be empty."
@@ -552,11 +606,28 @@ private struct PlannerModernView: View {
                 switch result {
                 case .success:
                     saveMessage = "Saved."
+                    if let destination = sectionContaining(taskId: task.id) {
+                        selectedSectionId = destination.id
+                        moveMessage = "Moved to \(destination.title)."
+                    }
                 case .failure:
                     saveMessage = "Save failed."
                 }
             }
         }
+    }
+
+    private var summaryLine: String {
+        let waiting = store.tasks.filter { $0.status == .inbox }.count
+        let done = store.tasks.filter { $0.status == .done }.count
+        let active = store.tasks.filter { $0.status != .done && $0.status != .archived }.count
+        return "Active \(active) · Waiting \(waiting) · Done \(done) · Groups \(store.groups.count)"
+    }
+
+    private func sectionContaining(taskId: String) -> TaskSection? {
+        store.sections.first(where: { section in
+            section.tasks.contains(where: { $0.id == taskId })
+        })
     }
 
     private func absoluteDate(_ date: Date) -> String {

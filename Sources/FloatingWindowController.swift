@@ -82,6 +82,7 @@ private struct CaptureDraft {
     var priority: Int
     var isStarred: Bool
     var statusOverride: TaskStatus?
+    var groupName: String?
 }
 
 private func parseCaptureInput(_ raw: String) -> CaptureDraft? {
@@ -89,15 +90,31 @@ private func parseCaptureInput(_ raw: String) -> CaptureDraft? {
     if text.isEmpty { return nil }
 
     var statusOverride: TaskStatus?
-    if text.hasPrefix("/done ") {
-        statusOverride = .done
-        text = String(text.dropFirst(6)).trimmingCharacters(in: .whitespaces)
-    } else if text.hasPrefix("/block ") {
-        statusOverride = .blocked
-        text = String(text.dropFirst(7)).trimmingCharacters(in: .whitespaces)
-    } else if text.hasPrefix("/inprogress ") {
-        statusOverride = .inProgress
-        text = String(text.dropFirst(12)).trimmingCharacters(in: .whitespaces)
+    if text.hasPrefix("/") {
+        let firstToken = text.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true).first.map(String.init) ?? ""
+        let remainder = text.dropFirst(firstToken.count).trimmingCharacters(in: .whitespaces)
+        switch firstToken.lowercased() {
+        case "/done":
+            statusOverride = .done
+            text = remainder
+        case "/todo":
+            statusOverride = .todo
+            text = remainder
+        case "/inbox":
+            statusOverride = .inbox
+            text = remainder
+        case "/blocked", "/block":
+            statusOverride = .blocked
+            text = remainder
+        case "/inprogress", "/in_progress":
+            statusOverride = .inProgress
+            text = remainder
+        case "/archived", "/archive":
+            statusOverride = .archived
+            text = remainder
+        default:
+            PlannerLogger.shared.log(.warn, "Unknown capture status command; treating as plain title", metadata: ["token": firstToken])
+        }
     }
 
     var priority = 2
@@ -115,6 +132,7 @@ private func parseCaptureInput(_ raw: String) -> CaptureDraft? {
 
     let tokens = text.split(separator: " ").map(String.init)
     var keptTokens: [String] = []
+    var groupName: String?
     for token in tokens {
         let lower = token.lowercased()
         if lower == "#star" || lower == "*" {
@@ -124,6 +142,13 @@ private func parseCaptureInput(_ raw: String) -> CaptureDraft? {
         if lower.hasPrefix("#p"), let p = Int(token.dropFirst(2)), (0...4).contains(p) {
             priority = p
             if p >= 3 { isStarred = true }
+            continue
+        }
+        if lower.hasPrefix("#g:") {
+            let rawName = String(token.dropFirst(3)).trimmingCharacters(in: .whitespacesAndNewlines)
+            if !rawName.isEmpty {
+                groupName = rawName
+            }
             continue
         }
         keptTokens.append(token)
@@ -140,7 +165,7 @@ private func parseCaptureInput(_ raw: String) -> CaptureDraft? {
     }
 
     if title.isEmpty { return nil }
-    return CaptureDraft(title: title, notes: notes, priority: priority, isStarred: isStarred, statusOverride: statusOverride)
+    return CaptureDraft(title: title, notes: notes, priority: priority, isStarred: isStarred, statusOverride: statusOverride, groupName: groupName)
 }
 
 struct FloatingInputView: View {
@@ -159,13 +184,25 @@ struct FloatingInputView: View {
                 .onSubmit {
                     let parsed = parseCaptureInput(text)
                     if let parsed {
+                        let groupId: String?
+                        if let requestedGroup = parsed.groupName {
+                            if let group = TaskStore.shared.groups.first(where: { $0.name.caseInsensitiveCompare(requestedGroup) == .orderedSame }) {
+                                groupId = group.id
+                            } else {
+                                groupId = nil
+                                PlannerLogger.shared.log(.warn, "Unknown capture group token; creating ungrouped task", metadata: ["group": requestedGroup])
+                            }
+                        } else {
+                            groupId = nil
+                        }
                         TaskStore.shared.addTask(
                             title: parsed.title,
                             notes: parsed.notes,
                             priority: parsed.priority,
                             isStarred: parsed.isStarred,
                             status: parsed.statusOverride,
-                            source: "menubar_capture"
+                            source: "menubar_capture",
+                            groupId: groupId
                         )
                         PlannerLogger.shared.log(.info, "Capture submitted", metadata: ["title": parsed.title])
                         text = ""
@@ -176,7 +213,7 @@ struct FloatingInputView: View {
                     isFocused = true
                 }
 
-            Text("Default plain entry goes to Waiting. Shortcuts: !, #p0-#p4, #star, :: notes, /done, /block, /inprogress")
+            Text("Default plain entry goes to Waiting. Shortcuts: !, #p0-#p4, #star, #g:<group>, :: notes, /done, /todo, /inbox, /blocked, /inprogress, /archived")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.horizontal)
