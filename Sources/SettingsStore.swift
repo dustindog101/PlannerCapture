@@ -55,6 +55,7 @@ struct PlannerSettings: Codable {
     var compactRowDensity: Bool
     var defaultGroupId: String?
     var visibleGroupIds: [String]
+    var newUIEnabled: Bool
 
     static let `default` = PlannerSettings(
         gatewayURL: "http://127.0.0.1:8765",
@@ -72,7 +73,8 @@ struct PlannerSettings: Codable {
         starClickImmediateSave: true,
         compactRowDensity: false,
         defaultGroupId: nil,
-        visibleGroupIds: []
+        visibleGroupIds: [],
+        newUIEnabled: true
     )
 
     enum CodingKeys: String, CodingKey {
@@ -92,6 +94,7 @@ struct PlannerSettings: Codable {
         case compactRowDensity
         case defaultGroupId
         case visibleGroupIds
+        case newUIEnabled
     }
 
     init(
@@ -110,7 +113,8 @@ struct PlannerSettings: Codable {
         starClickImmediateSave: Bool,
         compactRowDensity: Bool,
         defaultGroupId: String?,
-        visibleGroupIds: [String]
+        visibleGroupIds: [String],
+        newUIEnabled: Bool
     ) {
         self.gatewayURL = gatewayURL
         self.apiToken = apiToken
@@ -128,6 +132,7 @@ struct PlannerSettings: Codable {
         self.compactRowDensity = compactRowDensity
         self.defaultGroupId = defaultGroupId
         self.visibleGroupIds = visibleGroupIds
+        self.newUIEnabled = newUIEnabled
     }
 
     init(from decoder: Decoder) throws {
@@ -148,6 +153,7 @@ struct PlannerSettings: Codable {
         compactRowDensity = (try? c.decode(Bool.self, forKey: .compactRowDensity)) ?? PlannerSettings.default.compactRowDensity
         defaultGroupId = try? c.decodeIfPresent(String.self, forKey: .defaultGroupId)
         visibleGroupIds = (try? c.decode([String].self, forKey: .visibleGroupIds)) ?? []
+        newUIEnabled = (try? c.decode(Bool.self, forKey: .newUIEnabled)) ?? PlannerSettings.default.newUIEnabled
     }
 
     var defaultStatus: TaskStatus {

@@ -5,16 +5,16 @@ final class PlannerWindowController: NSWindowController {
     static let shared = PlannerWindowController()
 
     private init() {
-        let rootView = PlannerManagerView()
+        let rootView = PlannerRootView()
         let hosting = NSHostingView(rootView: rootView)
 
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 980, height: 640),
+            contentRect: NSRect(x: 0, y: 0, width: 1120, height: 700),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
             backing: .buffered,
             defer: false
         )
-        window.title = "PlannerCapture Manager"
+        window.title = "PlannerCapture"
         window.contentView = hosting
         window.center()
 
@@ -33,42 +33,84 @@ final class PlannerWindowController: NSWindowController {
     }
 }
 
-private struct PlannerManagerView: View {
+private enum PlannerPage: String, CaseIterable, Identifiable {
+    case tasks
+    case groups
+    case overview
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .tasks: return "Tasks"
+        case .groups: return "Groups"
+        case .overview: return "Overview"
+        }
+    }
+}
+
+private struct PlannerRootView: View {
+    @ObservedObject private var settingsStore = SettingsStore.shared
+
+    var body: some View {
+        if settingsStore.settings.newUIEnabled {
+            PlannerModernView()
+        } else {
+            PlannerLegacyView()
+        }
+    }
+}
+
+private struct PlannerModernView: View {
     @ObservedObject private var store = TaskStore.shared
     @ObservedObject private var settingsStore = SettingsStore.shared
 
+    @State private var selectedPage: PlannerPage = .tasks
     @State private var selectedSectionId: String?
     @State private var selectedTaskId: String?
     @State private var draft: TaskEditDraft?
     @State private var lastLoadedTaskId: String?
     @State private var isDirty: Bool = false
     @State private var saveMessage: String = ""
+    @State private var newGroupName: String = ""
+    @State private var groupMessage: String = ""
+    @State private var searchText: String = ""
     @State private var debounceWorkItem: DispatchWorkItem?
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 10) {
             header
-            Divider()
-            HStack(spacing: 0) {
-                sidebar
-                Divider()
-                taskList
-                Divider()
-                editorPanel
+            switch selectedPage {
+            case .tasks:
+                tasksPage
+            case .groups:
+                groupsPage
+            case .overview:
+                overviewPage
             }
         }
-        .frame(minWidth: 920, minHeight: 620)
+        .padding(10)
         .background(.regularMaterial)
         .onAppear {
-            pickDefaultSectionIfNeeded()
+            if selectedSectionId == nil {
+                selectedSectionId = store.sections.first?.id
+            }
+            if selectedTaskId == nil {
+                selectedTaskId = currentTasks().first?.id
+            }
             syncDraftToSelection()
         }
         .onChange(of: store.sections) {
-            pickDefaultSectionIfNeeded()
+            if selectedSectionId == nil || store.sections.first(where: { $0.id == selectedSectionId }) == nil {
+                selectedSectionId = store.sections.first?.id
+            }
+            if selectedTaskId == nil || currentTasks().first(where: { $0.id == selectedTaskId }) == nil {
+                selectedTaskId = currentTasks().first?.id
+            }
             syncDraftToSelection()
         }
         .onChange(of: selectedSectionId) {
-            pickTaskForSelectedSectionIfNeeded()
+            selectedTaskId = currentTasks().first?.id
             syncDraftToSelection()
         }
         .onChange(of: selectedTaskId) {
@@ -78,105 +120,246 @@ private struct PlannerManagerView: View {
 
     private var header: some View {
         HStack(spacing: 12) {
-            Text("Planner Manager")
-                .font(.title3)
-                .fontWeight(.semibold)
+            Text("PlannerCapture")
+                .font(.title3.weight(.semibold))
+
             Circle()
                 .fill(store.isConnected ? Color.green : Color.red)
-                .frame(width: 10, height: 10)
+                .frame(width: 9, height: 9)
+
             Text(store.isConnected ? "Connected" : "Disconnected")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            if let lastSyncAt = store.lastSyncAt {
-                Text("Last sync: \(relativeDate(lastSyncAt))")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
+
             Spacer()
-            if !saveMessage.isEmpty {
-                Text(saveMessage)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            Button("Refresh") {
-                saveMessage = ""
-                store.refreshNow()
-            }
-        }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 10)
-    }
 
-    private var sidebar: some View {
-        List(selection: Binding(
-            get: { selectedSectionId },
-            set: { raw in selectedSectionId = raw }
-        )) {
-            ForEach(store.sections) { section in
-                HStack {
-                    Text(section.title)
-                    Spacer()
-                    Text("\(section.tasks.count)")
-                        .foregroundColor(.secondary)
+            Picker("", selection: $selectedPage) {
+                ForEach(PlannerPage.allCases) { page in
+                    Text(page.label).tag(page)
                 }
-                .tag(section.id)
             }
+            .pickerStyle(.segmented)
+            .frame(width: 320)
+
+            Spacer()
+
+            TextField("Search", text: $searchText)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 220)
+
+            Button("Refresh") { store.refreshNow() }
+            Button("Settings") { SettingsWindowController.shared.show() }
         }
-        .frame(minWidth: 170, idealWidth: 200, maxWidth: 220)
-        .listStyle(.sidebar)
+        .padding(10)
         .background(.thinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: AppearanceTokens.paneCornerRadius, style: .continuous))
     }
 
-    private var taskList: some View {
-        List(selection: $selectedTaskId) {
-            ForEach(currentSectionTasks()) { task in
-                HStack(spacing: 8) {
-                    Button(action: {
-                        store.toggleTask(id: task.id)
-                    }) {
-                        Image(systemName: task.status == .done ? "arrow.uturn.backward.circle.fill" : "circle")
-                            .foregroundColor(task.status == .done ? .blue : .gray)
+    private var tasksPage: some View {
+        HStack(spacing: 10) {
+            PaneContainer(material: .thinMaterial) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Sections")
+                        .font(.headline)
+                    ForEach(store.sections) { section in
+                        Button {
+                            selectedSectionId = section.id
+                        } label: {
+                            HStack {
+                                Text(section.title)
+                                    .font(.subheadline)
+                                Spacer()
+                                Text("\(section.tasks.count)")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 6)
+                            .background(selectedSectionId == section.id ? Color.accentColor.opacity(0.14) : Color.clear)
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
-                    .disabled(store.isTaskInFlight(task.id))
+                    Spacer()
+                }
+            }
+            .frame(minWidth: 220, maxWidth: 240)
 
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(task.title)
-                            .lineLimit(2)
-                            .strikethrough(task.status == .done)
-                        Text(task.status.label + " · p\(task.priority)")
-                            .font(.caption2)
+            PaneContainer(material: .regularMaterial) {
+                VStack(alignment: .leading, spacing: 8) {
+                    SectionHeaderChip(title: selectedSection()?.title ?? "Tasks", count: filteredTasks(currentTasks()).count)
+
+                    if filteredTasks(currentTasks()).isEmpty {
+                        Text("No tasks in this section")
+                            .foregroundColor(.secondary)
+                            .padding(.top, 8)
+                        Spacer()
+                    } else {
+                        List(selection: $selectedTaskId) {
+                            ForEach(filteredTasks(currentTasks())) { task in
+                                taskRow(task)
+                                    .tag(task.id)
+                            }
+                        }
+                        .listStyle(.inset)
+                    }
+                }
+            }
+
+            PaneContainer(material: .ultraThinMaterial) {
+                inspector
+            }
+            .frame(minWidth: 320, maxWidth: 360)
+        }
+    }
+
+    private var groupsPage: some View {
+        HStack(spacing: 10) {
+            PaneContainer(material: .thinMaterial) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Manage Groups")
+                        .font(.headline)
+
+                    HStack {
+                        TextField("New group name", text: $newGroupName)
+                            .textFieldStyle(.roundedBorder)
+                        Button("Add") {
+                            let name = newGroupName.trimmingCharacters(in: .whitespacesAndNewlines)
+                            guard !name.isEmpty else { return }
+                            store.createGroup(name: name) { result in
+                                switch result {
+                                case .success:
+                                    groupMessage = "Group added."
+                                    newGroupName = ""
+                                case .failure:
+                                    groupMessage = "Failed to add group."
+                                }
+                            }
+                        }
+                    }
+
+                    if !groupMessage.isEmpty {
+                        Text(groupMessage)
+                            .font(.caption)
                             .foregroundColor(.secondary)
                     }
-                    Spacer()
-                    Button {
-                        if settingsStore.settings.starClickImmediateSave {
-                            store.toggleStar(taskId: task.id)
-                        } else {
-                            selectedTaskId = task.id
-                            draft = TaskEditDraft(task: task)
-                            draft?.isStarred.toggle()
-                            isDirty = true
+
+                    List {
+                        ForEach(store.groups) { group in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(group.name)
+                                    Text("ID: \(group.id)")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                Button("Remove") {
+                                    store.removeGroup(groupId: group.id) { result in
+                                        switch result {
+                                        case .success:
+                                            groupMessage = "Group removed."
+                                        case .failure:
+                                            groupMessage = "Failed to remove group."
+                                        }
+                                    }
+                                }
+                                .buttonStyle(.borderless)
+                                .foregroundColor(.red)
+                            }
+                            .padding(.vertical, 2)
                         }
-                    } label: {
-                        Image(systemName: task.isStarred ? "star.fill" : "star")
-                            .foregroundColor(task.isStarred ? .yellow : .secondary)
                     }
-                    .buttonStyle(.plain)
-                    .disabled(store.isTaskInFlight(task.id))
+                    .listStyle(.inset)
                 }
-                .tag(task.id)
-                .padding(.vertical, settingsStore.settings.compactRowDensity ? 1 : 4)
+            }
+
+            PaneContainer(material: .regularMaterial) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("How Groups Work")
+                        .font(.headline)
+                    Text("Groups help you separate school, personal, and project tasks. Add groups here, then assign them from the task inspector.")
+                        .foregroundColor(.secondary)
+                    Spacer()
+                }
             }
         }
-        .frame(minWidth: 300, idealWidth: 350, maxWidth: 380)
-        .background(.thinMaterial)
     }
 
-    private var editorPanel: some View {
+    private var overviewPage: some View {
+        PaneContainer(material: .thinMaterial) {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Overview")
+                    .font(.headline)
+
+                Text("Total tasks: \(store.tasks.count)")
+                Text("Sections: \(store.sections.count)")
+                Text("Groups: \(store.groups.count)")
+                if let lastSyncAt = store.lastSyncAt {
+                    Text("Last sync: \(absoluteDate(lastSyncAt))")
+                }
+
+                Divider()
+
+                Text("This page is intentionally simple and focused on status.")
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+        }
+    }
+
+    private func taskRow(_ task: PlannerTask) -> some View {
+        HStack(spacing: 8) {
+            Button {
+                store.toggleTask(id: task.id)
+            } label: {
+                Image(systemName: task.status == .done ? "arrow.uturn.backward.circle.fill" : "circle")
+                    .foregroundColor(task.status == .done ? .blue : .gray)
+            }
+            .buttonStyle(.plain)
+            .disabled(store.isTaskInFlight(task.id))
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(task.title)
+                    .font(.subheadline)
+                    .lineLimit(2)
+                    .strikethrough(task.status == .done)
+                Text("\(task.status.label) · p\(task.priority)")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+
+            Button {
+                store.toggleStar(taskId: task.id)
+            } label: {
+                Image(systemName: task.isStarred ? "star.fill" : "star")
+                    .foregroundColor(task.isStarred ? .yellow : .secondary)
+            }
+            .buttonStyle(.plain)
+            .disabled(store.isTaskInFlight(task.id))
+
+            Button {
+                store.removeTask(id: task.id)
+            } label: {
+                Image(systemName: "archivebox")
+                    .foregroundColor(.red.opacity(0.9))
+            }
+            .buttonStyle(.plain)
+            .disabled(store.isTaskInFlight(task.id))
+        }
+        .padding(.vertical, settingsStore.settings.compactRowDensity ? AppearanceTokens.rowVerticalCompact : AppearanceTokens.rowVerticalRegular)
+    }
+
+    private var inspector: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Task Details")
-                .font(.headline)
+            HStack {
+                Text("Inspector")
+                    .font(.headline)
+                Spacer()
+                if isDirty { StatusBadgeChip(label: "Unsaved") }
+            }
 
             if let task = selectedTask(), let draft {
                 Form {
@@ -216,8 +399,8 @@ private struct PlannerManagerView: View {
                             scheduleDirtyCheck(task: task)
                         }
                     )) {
-                        ForEach(0..<5) { priority in
-                            Text("P\(priority)").tag(priority)
+                        ForEach(0..<5) { p in
+                            Text("P\(p)").tag(p)
                         }
                     }
 
@@ -254,7 +437,7 @@ private struct PlannerManagerView: View {
                         DatePicker(
                             "Due",
                             selection: Binding(
-                                get: { self.dateFromUnix(self.draft?.dueAt) ?? Date() },
+                                get: { dateFromUnix(self.draft?.dueAt) ?? Date() },
                                 set: { value in
                                     self.draft?.dueAt = Int(value.timeIntervalSince1970)
                                     scheduleDirtyCheck(task: task)
@@ -265,58 +448,56 @@ private struct PlannerManagerView: View {
                     }
                 }
 
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Updated: \(absoluteDate(unix: task.updatedAt))")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text("Task ID: \(task.id)")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
+
                 HStack {
-                    Button("Archive") {
-                        saveMessage = ""
-                        store.removeTask(id: task.id)
+                    Button("Reset") {
+                        self.draft = TaskEditDraft(task: task)
+                        self.isDirty = false
+                        self.saveMessage = ""
                     }
-                    .disabled(store.isTaskInFlight(task.id))
-
-                    Button("Undo Done") {
-                        saveMessage = ""
-                        if task.status == .done {
-                            store.toggleTask(id: task.id)
-                        }
-                    }
-                    .disabled(store.isTaskInFlight(task.id) || task.status != .done)
-
                     Spacer()
-
+                    if !saveMessage.isEmpty {
+                        Text(saveMessage)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                     Button("Save") {
-                        saveMessage = ""
                         saveDraft(task: task)
                     }
                     .keyboardShortcut(.defaultAction)
                     .disabled(store.isTaskInFlight(task.id) || !isDirty)
                 }
             } else {
-                Text("Select a task from a section to edit.")
+                Text("Select a task to edit.")
                     .foregroundColor(.secondary)
             }
+
             Spacer()
         }
-        .padding(14)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(.ultraThinMaterial)
     }
 
-    private func pickDefaultSectionIfNeeded() {
-        if selectedSectionId == nil || store.sections.first(where: { $0.id == selectedSectionId }) == nil {
-            selectedSectionId = store.sections.first?.id
-        }
-        pickTaskForSelectedSectionIfNeeded()
+    private func selectedSection() -> TaskSection? {
+        guard let selectedSectionId else { return store.sections.first }
+        return store.sections.first(where: { $0.id == selectedSectionId })
     }
 
-    private func pickTaskForSelectedSectionIfNeeded() {
-        let sectionTasks = currentSectionTasks()
-        if selectedTaskId == nil || sectionTasks.first(where: { $0.id == selectedTaskId }) == nil {
-            selectedTaskId = sectionTasks.first?.id
-        }
+    private func currentTasks() -> [PlannerTask] {
+        selectedSection()?.tasks ?? []
     }
 
-    private func currentSectionTasks() -> [PlannerTask] {
-        guard let selectedSectionId else { return [] }
-        return store.sections.first(where: { $0.id == selectedSectionId })?.tasks ?? []
+    private func filteredTasks(_ tasks: [PlannerTask]) -> [PlannerTask] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !query.isEmpty else { return tasks }
+        return tasks.filter { $0.title.lowercased().contains(query) || $0.notes.lowercased().contains(query) }
     }
 
     private func selectedTask() -> PlannerTask? {
@@ -372,20 +553,60 @@ private struct PlannerManagerView: View {
                 case .success:
                     saveMessage = "Saved."
                 case .failure:
-                    saveMessage = "Save failed. Check logs."
+                    saveMessage = "Save failed."
                 }
             }
         }
     }
 
-    private func relativeDate(_ date: Date) -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .short
-        return formatter.localizedString(for: date, relativeTo: Date())
+    private func absoluteDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+
+    private func absoluteDate(unix: Int) -> String {
+        absoluteDate(Date(timeIntervalSince1970: TimeInterval(unix)))
     }
 
     private func dateFromUnix(_ value: Int?) -> Date? {
         guard let value else { return nil }
         return Date(timeIntervalSince1970: TimeInterval(value))
+    }
+}
+
+private struct PlannerLegacyView: View {
+    @ObservedObject private var store = TaskStore.shared
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("Legacy Planner View")
+                    .font(.headline)
+                Spacer()
+                Button("Enable New UI") {
+                    var settings = SettingsStore.shared.settings
+                    settings.newUIEnabled = true
+                    SettingsStore.shared.apply(settings)
+                    TaskStore.shared.applySettings()
+                }
+            }
+            .padding(10)
+            .background(.thinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+            List {
+                ForEach(store.sections) { section in
+                    Section(header: Text(section.title)) {
+                        ForEach(section.tasks) { task in
+                            Text(task.title)
+                        }
+                    }
+                }
+            }
+        }
+        .padding(12)
+        .background(.regularMaterial)
     }
 }

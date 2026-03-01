@@ -21,14 +21,14 @@ class MenuBarManager: NSObject, NSPopoverDelegate {
         }
 
         popover = NSPopover()
-        popover.contentSize = NSSize(width: 430, height: 560)
+        popover.contentSize = NSSize(width: 420, height: 540)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: MenuContentView())
         popover.delegate = self
 
         eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
-            if let strSelf = self, strSelf.popover.isShown {
-                strSelf.closePopover(sender: event)
+            if let self, self.popover.isShown {
+                self.closePopover(sender: event)
             }
         }
     }
@@ -66,127 +66,89 @@ struct MenuContentView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
+            HStack(spacing: 10) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("PlannerCapture")
                         .font(.headline)
-                    if store.isConnected {
-                        Text("Connected to Daily Helper Hub")
-                            .font(.caption)
-                            .foregroundColor(.green)
-                    } else {
-                        Text(store.lastError.isEmpty ? "Waiting for gateway" : store.lastError)
-                            .font(.caption)
-                            .foregroundColor(.red)
-                            .lineLimit(2)
-                    }
+                    Text(store.isConnected ? "Connected" : "Disconnected")
+                        .font(.caption)
+                        .foregroundColor(store.isConnected ? .green : .red)
                 }
                 Spacer()
-                Button("Refresh") {
-                    store.refreshNow()
-                }
-                Button("Planner") {
-                    PlannerWindowController.shared.show()
-                }
-                Button("Settings") {
-                    SettingsWindowController.shared.show()
-                }
-                Button("Logs") {
-                    PlannerLogger.shared.openLogFile()
-                }
-                Button("Quit") {
-                    NSApplication.shared.terminate(nil)
-                }
+                Button("Planner") { PlannerWindowController.shared.show() }
+                Button("Settings") { SettingsWindowController.shared.show() }
+                Button("Refresh") { store.refreshNow() }
             }
-            .padding()
+            .padding(12)
             .background(.thinMaterial)
 
             Divider()
 
             List {
-                if store.sections.isEmpty {
-                    Section(header: Text("Tasks").font(.subheadline).bold()) {
-                        Text("No active tasks")
-                            .foregroundColor(.secondary)
-                    }
-                } else {
-                    ForEach(store.sections) { section in
-                        Section(header: Text("\(section.title) (\(section.tasks.count))").font(.subheadline).bold()) {
-                            ForEach(section.tasks) { task in
-                                TaskRow(task: task)
-                            }
+                ForEach(store.sections.prefix(4)) { section in
+                    Section(header: Text("\(section.title) (\(section.tasks.count))").font(.subheadline).bold()) {
+                        ForEach(section.tasks.prefix(6)) { task in
+                            MenuTaskRow(task: task)
                         }
                     }
                 }
             }
+            .listStyle(.inset)
+
+            Divider()
+
+            HStack {
+                Button("Logs") { PlannerLogger.shared.openLogFile() }
+                Spacer()
+                Button("Quit") { NSApplication.shared.terminate(nil) }
+            }
+            .padding(10)
+            .background(.thinMaterial)
         }
-        .frame(width: 430, height: 560)
+        .frame(width: 420, height: 540)
         .background(.regularMaterial)
     }
 }
 
-private struct TaskRow: View {
+private struct MenuTaskRow: View {
     let task: PlannerTask
     @ObservedObject private var store = TaskStore.shared
-    @ObservedObject private var settingsStore = SettingsStore.shared
 
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
-            Button(action: {
+        HStack(spacing: 8) {
+            Button {
                 store.toggleTask(id: task.id)
-            }) {
+            } label: {
                 Image(systemName: task.status == .done ? "arrow.uturn.backward.circle.fill" : "circle")
-                    .foregroundColor(task.isDone ? .blue : .gray)
+                    .foregroundColor(task.status == .done ? .blue : .gray)
             }
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.plain)
             .disabled(store.isTaskInFlight(task.id))
 
-            VStack(alignment: .leading, spacing: 3) {
-                HStack(spacing: 5) {
-                    if task.status == .done {
-                        Text("Done")
-                            .font(.caption2)
-                            .foregroundColor(.blue)
-                    }
-                    Button {
-                        store.toggleStar(taskId: task.id)
-                    } label: {
-                        Image(systemName: task.isStarred ? "star.fill" : "star")
-                            .foregroundColor(task.isStarred ? .yellow : .secondary)
-                            .imageScale(.small)
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(store.isTaskInFlight(task.id))
-                    Text(task.title)
-                        .strikethrough(task.isDone, color: .gray)
-                        .foregroundColor(task.isDone ? .gray : .primary)
-                        .lineLimit(2)
-                }
-
-                if !task.notes.isEmpty {
-                    Text(task.notes)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(2)
-                }
-
-                Text("\(task.status.rawValue) · p\(task.priority) · \(task.source)")
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-            }
+            Text(task.title)
+                .lineLimit(1)
+                .strikethrough(task.status == .done)
 
             Spacer()
 
-            Button(action: {
-                store.removeTask(id: task.id)
-            }) {
-                Image(systemName: task.status == .done ? "trash" : "archivebox")
-                    .foregroundColor(.red.opacity(task.status == .done ? 1 : 0.85))
-                    .imageScale(.small)
+            Button {
+                store.toggleStar(taskId: task.id)
+            } label: {
+                Image(systemName: task.isStarred ? "star.fill" : "star")
+                    .foregroundColor(task.isStarred ? .yellow : .secondary)
             }
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.plain)
+            .disabled(store.isTaskInFlight(task.id))
+
+            Button {
+                store.removeTask(id: task.id)
+            } label: {
+                Image(systemName: "archivebox")
+                    .foregroundColor(.red.opacity(0.9))
+            }
+            .buttonStyle(.plain)
             .disabled(store.isTaskInFlight(task.id))
         }
-        .padding(.vertical, settingsStore.settings.compactRowDensity ? 1 : 3)
+        .padding(.vertical, 2)
     }
 }

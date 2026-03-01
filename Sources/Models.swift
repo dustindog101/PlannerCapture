@@ -212,6 +212,16 @@ private struct GroupsResponse: Decodable {
     }
 }
 
+struct GroupResponse: Decodable {
+    let group: TaskGroup
+    let latestSeq: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case group
+        case latestSeq = "latest_seq"
+    }
+}
+
 enum GatewayError: Error {
     case invalidURL(String)
     case transport(String)
@@ -278,6 +288,19 @@ final class GatewayClient {
         request(path: "/v1/groups", method: "GET", body: nil, responseType: GroupsResponse.self) { result in
             completion(result.map { $0.groups })
         }
+    }
+
+    func createGroup(name: String, color: String = "blue", sortOrder: Int = 0, completion: @escaping (Result<GroupResponse, GatewayError>) -> Void) {
+        let payload: [String: Any] = [
+            "name": name,
+            "color": color,
+            "sort_order": sortOrder
+        ]
+        requestJSON(path: "/v1/groups", method: "POST", payload: payload, responseType: GroupResponse.self, completion: completion)
+    }
+
+    func archiveGroup(groupId: String, completion: @escaping (Result<GroupResponse, GatewayError>) -> Void) {
+        request(path: "/v1/groups/\(groupId)/archive", method: "POST", body: nil, responseType: GroupResponse.self, completion: completion)
     }
 
     func createTask(
@@ -668,6 +691,51 @@ final class TaskStore: ObservableObject {
 
     func isTaskInFlight(_ taskId: String) -> Bool {
         inFlightActions[taskId] != nil
+    }
+
+    func createGroup(name: String, color: String = "blue", completion: @escaping (Result<Void, GatewayError>) -> Void) {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            completion(.failure(.decode("group name cannot be empty")))
+            return
+        }
+        client.createGroup(name: trimmed, color: color, sortOrder: groups.count) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                switch result {
+                case .success(let out):
+                    if let seq = out.latestSeq {
+                        self.lastSeenSeq = max(self.lastSeenSeq, seq)
+                    }
+                    self.markHealthyConnection()
+                    self.loadTasks()
+                    completion(.success(()))
+                case .failure(let error):
+                    self.handle(error: error)
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    func removeGroup(groupId: String, completion: @escaping (Result<Void, GatewayError>) -> Void) {
+        client.archiveGroup(groupId: groupId) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                switch result {
+                case .success(let out):
+                    if let seq = out.latestSeq {
+                        self.lastSeenSeq = max(self.lastSeenSeq, seq)
+                    }
+                    self.markHealthyConnection()
+                    self.loadTasks()
+                    completion(.success(()))
+                case .failure(let error):
+                    self.handle(error: error)
+                    completion(.failure(error))
+                }
+            }
+        }
     }
 
     private func schedulePolling() {

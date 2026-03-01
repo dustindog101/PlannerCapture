@@ -18,3 +18,5 @@
 - Group-aware task model with `group_id` support.
 - Grouping modes: bucket, group->bucket, bucket->group.
 - Manager editor includes group picker and grouping-aware section rendering.
+- Major UI remodel with three-pane Apple-glass layout, saved filters, collapsible sections, and inspector metadata.
+- Tabbed settings architecture (`General`, `Views`, `Shortcuts`, `Data & Sync`, `Diagnostics`) with `new_ui_enabled` fallback toggle.

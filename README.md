@@ -12,7 +12,7 @@ PlannerCapture is a macOS menubar + global capture app that now reads/writes tas
 - Capture box supports terminal-style shortcuts for status, priority, stars, and notes.
 - Persistent app logs are written to `~/Library/Logs/PlannerCapture/plannercapture.log`.
 - A settings window is available from the menubar popover.
-- A standalone planner manager window is available from the menubar popover.
+- A remodeled, native-feeling planner window is available from the menubar popover.
 
 ## Capture Shortcuts
 
@@ -63,28 +63,19 @@ cd "/Users/king/Desktop/school files/PlannerCapture"
 open PlannerCapture.app
 ```
 
-Configure runtime options in **Settings** from the menubar:
+Configure runtime options in **Settings** from the menubar. Settings are organized into intentional tabs:
 
-- Gateway URL
-- Gateway API token
-- Visible/hidden polling intervals
-- Default new-task status
-- Immediate override behavior
-- CLI mirror toggle
-- Log level
-- Show/hide Waiting and Done sections
-- Default sort mode (`Smart`, `Due Date`, `Priority`, `Recently Updated`)
-- Default group view (`Bucket`, `Group -> Bucket`, `Bucket -> Group`)
-- Star click behavior
-- Compact row density
-- Default group ID and visible group ID filters
+- `General`: default task behavior and legacy/new UI toggle.
+- `Views`: section visibility, density, sorting, grouping, star interaction.
+- `Sync`: gateway config and polling.
+- `Diagnostics`: log level and log tools.
 
-Open **Planner** from the menubar for the v2 manager window:
+Open **Planner** from the menubar for the remodeled manager window:
 
-- Sidebar sections with task counts.
-- Section task list with complete/undo behavior.
-- Edit panel for title, notes, status, due date, priority, star, and group.
-- Explicit Save for reliable updates.
+- `Tasks` tab: clean task list + inspector editing.
+- `Groups` tab: add and remove groups directly.
+- `Overview` tab: high-level task/group status.
+- Balanced Apple-style glass materials and clear typography across panes.
 
 ## Troubleshooting
 
@@ -93,6 +84,7 @@ Open **Planner** from the menubar for the v2 manager window:
 - Hotkey not working: verify Accessibility permission for PlannerCapture.
 - Use **Logs** button in popover to open `plannercapture.log` for detailed errors.
 - Use **Copy Last Error** in settings to copy recent warning/error lines to clipboard.
+- If you need the old planner view temporarily, disable **Enable remodeled planner UI** in `General` settings.
 - Correlate failures by request ID:
   - PlannerCapture logs include `request_id`.
   - Gateway responses include `request_id` and `X-Request-Id`.
