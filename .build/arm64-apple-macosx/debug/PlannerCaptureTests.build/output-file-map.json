@@ -1,0 +1,40 @@
+{
+  "": {
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/master.swiftdeps"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/GatewaySyncIntegrationTests.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/ParseCaptureInputTests.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/SectioningAndSortingTests.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/GatewayStubURLProtocol.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/PlannerCaptureIntegrationTestCase.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase.dia"
+  }
+}

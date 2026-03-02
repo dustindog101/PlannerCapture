@@ -1,0 +1,124 @@
+{
+  "": {
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/master.swiftdeps"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/GatewayClient.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/GlobalHotkey.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/MenuBarManager.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/Models.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/PlannerCaptureApp.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/PlannerLogger.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/PlannerWindowController.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/SettingsStore.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/SettingsWindowController.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/TaskSectionBuilder.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Actions.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Sync.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.dia"
+  },
+  "/Users/king/coding/projects/PlannerCapture/Sources/UIPrimitives.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.dia"
+  }
+}

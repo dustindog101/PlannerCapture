@@ -1,0 +1,17 @@
+/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift
+/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift
+/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift
+/Users/king/coding/projects/PlannerCapture/Sources/GatewayClient.swift
+/Users/king/coding/projects/PlannerCapture/Sources/GlobalHotkey.swift
+/Users/king/coding/projects/PlannerCapture/Sources/MenuBarManager.swift
+/Users/king/coding/projects/PlannerCapture/Sources/Models.swift
+/Users/king/coding/projects/PlannerCapture/Sources/PlannerCaptureApp.swift
+/Users/king/coding/projects/PlannerCapture/Sources/PlannerLogger.swift
+/Users/king/coding/projects/PlannerCapture/Sources/PlannerWindowController.swift
+/Users/king/coding/projects/PlannerCapture/Sources/SettingsStore.swift
+/Users/king/coding/projects/PlannerCapture/Sources/SettingsWindowController.swift
+/Users/king/coding/projects/PlannerCapture/Sources/TaskSectionBuilder.swift
+/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Actions.swift
+/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Sync.swift
+/Users/king/coding/projects/PlannerCapture/Sources/TaskStore.swift
+/Users/king/coding/projects/PlannerCapture/Sources/UIPrimitives.swift

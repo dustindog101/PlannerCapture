@@ -1,100 +1,164 @@
 # PlannerCapture
 
-PlannerCapture is a macOS menubar + global capture app that now reads/writes tasks through Daily Helper Hub.
+PlannerCapture is a native macOS menubar + planner app for fast task capture and task management, backed by Daily Helper Hub APIs.
 
-## What Changed
+## Key Features
 
-- Task source is now the hub gateway (`http://127.0.0.1:8765` by default).
-- Menubar list refreshes automatically using sequence polling.
-- Plain capture text defaults to `Waiting` (`inbox`) status.
-- Tasks are grouped into `Immediate`, `This Week`, `Other`, `Waiting`, and `Done`.
-- Row stars are directly clickable and save immediately.
-- Capture box supports terminal-style shortcuts for status, priority, stars, and notes.
-- Persistent app logs are written to `~/Library/Logs/PlannerCapture/plannercapture.log`.
-- A settings window is available from the menubar popover.
-- A remodeled, native-feeling planner window is available from the menubar popover.
+- Global hotkey capture (`Cmd+Shift+Space`) via floating input panel.
+- Capture command parsing for status, priority, star, notes, and group assignment.
+- Menubar popover with connection state and quick task actions.
+- Full planner window with sectioned task list and inspector editing.
+- In-app group management (add/rename/remove/archive).
+- Settings UI for sync, views, defaults, and diagnostics.
+- Request-correlated persistent logs for troubleshooting.
 
-## Capture Shortcuts
+## Documentation Map
 
-Type inside the hotkey popup (`Cmd+Shift+Space`):
+- [Technology stack](./tech-stack.md)
+- [System architecture](./architecture.md)
+- [Product spec](./SPEC.md)
+- [Roadmap](./ROADMAP.md)
+- [Progress log](./progress.md)
+- [Testing strategy](./testing-strategy.md)
+- [AI agent rules](./CLAUDE.md)
+- [Context knowledge base](./context/)
 
-- `!` at start: boost priority and star.
-- `#p0`..`#p4`: set priority explicitly.
-- `#star` or `*`: star task.
-- `::`: split title and notes.
-- `/done <title>`: create completed task.
-- `/todo <title>`: create todo task.
-- `/inbox <title>`: create waiting task.
-- `/blocked <title>` or `/block <title>`: create blocked task.
-- `/inprogress <title>`: create in-progress task.
-- `/archived <title>`: create archived task.
-- `#g:<group-name>`: assign task to an existing group.
+## Tech Stack (Summary)
 
-Examples:
+- Swift + SwiftUI + AppKit + Carbon
+- Foundation `URLSession` for gateway API integration
+- Local settings JSON + file-based app logs
+- Build via `swiftc` and `build.sh`
 
-- `test task` (lands in Waiting by default)
-- `! call mechanic :: ask for quote`
-- `#p4 study for monday exam :: review chapter 3`
-- `/done submit article review`
-- `/inbox review lecture slides #g:School`
+See [tech-stack.md](./tech-stack.md) for full reasoning and details.
 
 ## Prerequisites
 
-- Daily Helper Hub DB + gateway running.
-- macOS with Swift toolchain.
+- macOS with Swift toolchain (`swiftc`) available.
+- Daily Helper Hub repository available locally.
+- Hub gateway and DB runtime available locally.
 
-## Build
-
-```bash
-cd "/Users/king/Desktop/school files/PlannerCapture"
-./build.sh
-```
-
-## Run with Hub
-
-In terminal 1 (hub):
+## Getting Started (5-Minute Run)
 
 ```bash
+# 1) Start backend dependency (Terminal 1)
 cd "/Users/king/Desktop/school files/daily-helper-hub"
 python3 hub-db/init_db.py
 python3 hub-gateway/server.py
 ```
 
-In terminal 2 (PlannerCapture):
-
 ```bash
+# 2) Build and run PlannerCapture (Terminal 2)
 cd "/Users/king/Desktop/school files/PlannerCapture"
 ./build.sh
 open PlannerCapture.app
 ```
 
-Configure runtime options in **Settings** from the menubar. Settings are organized into intentional tabs:
+```bash
+# 3) Optional: verify gateway API is alive
+curl http://127.0.0.1:8765/v1/tasks
+```
 
-- `General`: default task behavior and legacy/new UI toggle.
-- `Views`: section visibility, density, sorting, grouping, star interaction.
-- `Sync`: gateway config and polling.
-- `Diagnostics`: log level and log tools.
+## Capture Shortcuts
 
-Open **Planner** from the menubar for the remodeled manager window:
+Inside the hotkey popup:
 
-- `Tasks` tab: clean task list + inspector editing.
-- `Groups` tab: add, rename, and remove groups directly.
-- `Settings` tab: full settings editor in-app.
-- Balanced Apple-style glass materials and clear typography across panes.
-- Status updates move tasks into their destination section and keep selection on the same task.
-- Row-star toggles sync to inspector state immediately (with rollback on failure).
+- `!` at start: increase priority and star task.
+- `#p0`..`#p4`: explicit priority.
+- `#star` or `*`: star task.
+- `::`: split `title :: notes`.
+- `/done <title>`: create done task.
+- `/todo <title>`: create todo task.
+- `/inbox <title>`: create waiting task.
+- `/blocked <title>` or `/block <title>`: blocked task.
+- `/inprogress <title>`: in-progress task.
+- `/archived <title>`: archived task.
+- `#g:<group-name>`: assign to existing group.
+
+Examples:
+- `test task`
+- `! call mechanic :: ask for quote`
+- `#p4 study for monday exam :: review chapter 3`
+- `/done submit article review`
+- `/inbox review lecture slides #g:School`
+
+## Configuration and Environment
+
+PlannerCapture uses persisted settings rather than `.env` files.
+
+Settings file location:
+- `~/Library/Application Support/PlannerCapture/settings.json`
+
+Log file location:
+- `~/Library/Logs/PlannerCapture/plannercapture.log`
+
+### Runtime Settings / "Env" Table
+
+| Key | Purpose | Example | Required |
+|---|---|---|---|
+| `gatewayURL` | Hub API base URL | `http://127.0.0.1:8765` | Yes |
+| `apiToken` | Optional Bearer token | `abc123` | No |
+| `pollVisibleSec` | Poll interval when popover visible | `3` | Yes |
+| `pollHiddenSec` | Poll interval when popover hidden | `15` | Yes |
+| `defaultStatusRaw` | Default status for created tasks | `inbox` | Yes |
+| `immediateOverrideEnabled` | Star/high-priority immediate bucketing | `true` | Yes |
+| `mirrorCLI` | Mirror new tasks to planner CLI | `false` | No |
+| `logLevelRaw` | Minimum log level | `info` | Yes |
+| `showDoneSection` | Show/hide done section | `true` | Yes |
+| `showWaitingSection` | Show/hide waiting section | `true` | Yes |
+| `defaultSortModeRaw` | Default sorting behavior | `smart` | Yes |
+| `defaultGroupViewRaw` | Grouping layout mode | `bucket` | Yes |
+| `starClickImmediateSave` | Immediate star persistence toggle | `true` | Yes |
+| `compactRowDensity` | Task row compact density | `false` | No |
+| `defaultGroupId` | Default group for new tasks | `<group-id>` | No |
+| `visibleGroupIds` | Filtered visible groups | `group1,group2` | No |
+| `newUIEnabled` | Toggle modern planner UI | `true` | Yes |
+
+## Available Commands
+
+| Command | What it does |
+|---|---|
+| `./build.sh` | Builds `PlannerCapture.app` and compiles all Swift sources |
+| `open PlannerCapture.app` | Launches PlannerCapture |
+| `curl http://127.0.0.1:8765/v1/tasks` | Quick gateway health/data check |
+
+## Project Structure (Quick View)
+
+```text
+Sources/
+├── PlannerCaptureApp.swift          # App startup, notification setup, hotkey registration
+├── Models.swift                     # Domain models, GatewayClient, TaskStore
+├── FloatingWindowController.swift   # Hotkey panel and capture parsing
+├── MenuBarManager.swift             # Menubar popover and quick task controls
+├── PlannerWindowController.swift    # Main planner manager window
+├── SettingsStore.swift              # Settings persistence and sanitization
+├── SettingsWindowController.swift   # Settings UI tabs
+├── PlannerLogger.swift              # File logger and diagnostics helpers
+├── GlobalHotkey.swift               # Carbon hotkey registration
+├── CLIWrapper.swift                 # Optional planner CLI mirror
+└── UIPrimitives.swift               # Shared UI tokens/components
+```
+
+See [architecture.md](./architecture.md) for complete structure and interactions.
 
 ## Troubleshooting
 
-- Menubar says waiting/error: confirm gateway is running and reachable.
-- No tasks showing: run `curl http://127.0.0.1:8765/v1/tasks` to verify API data.
-- Hotkey not working: verify Accessibility permission for PlannerCapture.
-- Use **Logs** button in popover to open `plannercapture.log` for detailed errors.
-- Use **Copy Last Error** in settings to copy recent warning/error lines to clipboard.
-- If you need the old planner view temporarily, disable **Enable remodeled planner UI** in `General` settings.
-- Unknown capture commands are treated as plain task text and logged as warnings.
-- Unknown `#g:<name>` values create tasks ungrouped and log a warning.
-- Correlate failures by request ID:
-  - PlannerCapture logs include `request_id`.
-  - Gateway responses include `request_id` and `X-Request-Id`.
-  - Gateway logs are at `~/Library/Logs/daily-helper-hub/gateway.log`.
+- Disconnected status: verify hub gateway is running and `gatewayURL` is correct.
+- No tasks visible: run `curl http://127.0.0.1:8765/v1/tasks`.
+- Hotkey not working: verify macOS Accessibility permissions.
+- Use **Logs** in menubar or **Open logs** in settings.
+- Use **Copy last error** in settings for quick diagnostics payload.
+
+## Contributing
+
+- Follow architecture and placement conventions in [architecture.md](./architecture.md).
+- Follow AI/developer operating rules in [CLAUDE.md](./CLAUDE.md).
+- Update docs when behavior or architecture changes:
+  - `progress.md` for status changes
+  - `tech-stack.md` for dependency/runtime changes
+  - `SPEC.md` for feature behavior changes
+
+## License
+
+No license file is currently present in this repository.
+

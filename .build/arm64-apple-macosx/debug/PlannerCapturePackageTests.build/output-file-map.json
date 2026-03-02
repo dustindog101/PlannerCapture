@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/master.swiftdeps"
+  },
+  "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.derived/runner.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner.dia"
+  }
+}

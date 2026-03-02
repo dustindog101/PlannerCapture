@@ -1,0 +1,1118 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.xctest/Contents/MacOS/PlannerCapturePackageTests",
+      "packagePath" : "/Users/king/coding/projects/PlannerCapture",
+      "productName" : "PlannerCapturePackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.PlannerCapture-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/sources",
+      "importPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/GatewayClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/GlobalHotkey.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/MenuBarManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/PlannerCaptureApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/PlannerLogger.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/PlannerWindowController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/SettingsStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/SettingsWindowController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskSectionBuilder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Actions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Sync.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/UIPrimitives.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "PlannerCapture",
+      "moduleOutputPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCapture.swiftmodule",
+      "objects" : [
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "PlannerCapture_main",
+        "-swift-version",
+        "5",
+        "-Xfrontend",
+        "-strict-concurrency=minimal",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "plannercapture"
+      ],
+      "outputFileMapPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCapture.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/GatewayClient.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/GlobalHotkey.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/MenuBarManager.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/Models.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/PlannerCaptureApp.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/PlannerLogger.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/PlannerWindowController.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/SettingsStore.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/SettingsWindowController.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/TaskSectionBuilder.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Actions.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Sync.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore.swift",
+        "/Users/king/coding/projects/PlannerCapture/Sources/UIPrimitives.swift"
+      ],
+      "tempsPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.PlannerCapturePackageTests-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/sources",
+      "importPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCaptureTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "PlannerCapturePackageTests",
+      "moduleOutputPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCapturePackageTests.swiftmodule",
+      "objects" : [
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/include/PlannerCapturePackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "plannercapture"
+      ],
+      "outputFileMapPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCapturePackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.PlannerCaptureTests-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/sources",
+      "importPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/GatewaySyncIntegrationTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/ParseCaptureInputTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/SectioningAndSortingTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/GatewayStubURLProtocol.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/PlannerCaptureIntegrationTestCase.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "PlannerCaptureTests",
+      "moduleOutputPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCaptureTests.swiftmodule",
+      "objects" : [
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol.swift.o",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-Xfrontend",
+        "-strict-concurrency=minimal",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "plannercapture"
+      ],
+      "outputFileMapPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCaptureTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/GatewaySyncIntegrationTests.swift",
+        "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/ParseCaptureInputTests.swift",
+        "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/SectioningAndSortingTests.swift",
+        "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/GatewayStubURLProtocol.swift",
+        "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/PlannerCaptureIntegrationTestCase.swift"
+      ],
+      "tempsPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "PlannerCapture" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "PlannerCapture",
+      "-package-name",
+      "plannercapture",
+      "-c",
+      "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/GatewayClient.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/GlobalHotkey.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/MenuBarManager.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/Models.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/PlannerCaptureApp.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/PlannerLogger.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/PlannerWindowController.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/SettingsStore.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/SettingsWindowController.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/TaskSectionBuilder.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Actions.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Sync.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore.swift",
+      "/Users/king/coding/projects/PlannerCapture/Sources/UIPrimitives.swift",
+      "-I",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "PlannerCapture_main",
+      "-swift-version",
+      "5",
+      "-Xfrontend",
+      "-strict-concurrency=minimal",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "plannercapture",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "PlannerCapturePackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "PlannerCapturePackageTests",
+      "-package-name",
+      "plannercapture",
+      "-c",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.derived/runner.swift",
+      "-I",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/include/PlannerCapturePackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "plannercapture",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "PlannerCaptureTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "PlannerCaptureTests",
+      "-package-name",
+      "plannercapture",
+      "-c",
+      "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/GatewaySyncIntegrationTests.swift",
+      "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/ParseCaptureInputTests.swift",
+      "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/SectioningAndSortingTests.swift",
+      "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/GatewayStubURLProtocol.swift",
+      "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/PlannerCaptureIntegrationTestCase.swift",
+      "-I",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-Xfrontend",
+      "-strict-concurrency=minimal",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "plannercapture",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "PlannerCapture" : [
+
+    ],
+    "PlannerCapturePackageTests" : [
+      "PlannerCaptureTests",
+      "PlannerCapture"
+    ],
+    "PlannerCaptureTests" : [
+      "PlannerCapture"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture-entitlement.plist"
+    },
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/GatewayClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/GlobalHotkey.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/MenuBarManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/PlannerCaptureApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/PlannerLogger.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/PlannerWindowController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/SettingsStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/SettingsWindowController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskSectionBuilder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Actions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore+Sync.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/TaskStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/UIPrimitives.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/sources"
+    },
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.product/Objects.LinkFileList"
+    },
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/sources"
+    },
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GatewayClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/GlobalHotkey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/MenuBarManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerCaptureApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerLogger.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/PlannerWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/SettingsWindowController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskSectionBuilder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Actions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore+Sync.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/TaskStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/UIPrimitives.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewayStubURLProtocol.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/GatewaySyncIntegrationTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/ParseCaptureInputTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/PlannerCaptureIntegrationTestCase.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/SectioningAndSortingTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapturePackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/GatewaySyncIntegrationTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/ParseCaptureInputTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/SectioningAndSortingTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/GatewayStubURLProtocol.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Tests/PlannerCaptureTests/TestSupport/PlannerCaptureIntegrationTestCase.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCaptureTests.build/sources"
+    },
+    "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}
