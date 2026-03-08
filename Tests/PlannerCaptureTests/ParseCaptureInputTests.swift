@@ -123,6 +123,32 @@ final class ParseCaptureInputTests: XCTestCase {
         XCTAssertTrue(abs((parsed?.dueAt ?? 0) - expected) <= 2, "dueAt should be ~1 hour from now")
     }
 
+    func test_parseCaptureInput_colonShorthandToken_setsDueAt() {
+        let before = Int(Date().timeIntervalSince1970)
+        // Notice we test both :tomorrow and :1h30m here conceptually
+        let parsed = parseCaptureInput("!Meeting :1h30m :: prep slides")
+
+        XCTAssertNotNil(parsed)
+        XCTAssertEqual(parsed?.title, "Meeting")
+        XCTAssertEqual(parsed?.notes, "prep slides")
+        XCTAssertNotNil(parsed?.dueAt)
+
+        let expected = before + 5400
+        XCTAssertTrue(abs((parsed?.dueAt ?? 0) - expected) <= 2, "dueAt should be ~1h30m from now")
+    }
+
+    func test_parseCaptureInput_compoundRelativeWithSpaces_setsDueAt() {
+        let before = Int(Date().timeIntervalSince1970)
+        let parsed = parseCaptureInput("Task|1d 10h")
+
+        XCTAssertNotNil(parsed)
+        XCTAssertEqual(parsed?.title, "Task")
+        XCTAssertNotNil(parsed?.dueAt)
+
+        let expected = before + 86400 + 36000 // 1d + 10h = 122400s
+        XCTAssertTrue(abs((parsed?.dueAt ?? 0) - expected) <= 2, "dueAt should be ~1d 10h from now")
+    }
+
     func test_parseCaptureInput_unrecognizedDueDate_fallsBackToNotes() {
         let parsed = parseCaptureInput("Bad task|someday maybe")
 

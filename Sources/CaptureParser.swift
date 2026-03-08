@@ -31,46 +31,41 @@ func parseDueDate(_ raw: String) -> Int? {
     return nil
 }
 
-/// Parses relative time offsets like "5m", "2h", "1d", "1w", "1h30m", "1h:30m".
+/// Parses relative time offsets like "5m", "1d", "1w", "1d 10h", "1h30m"
 private func parseRelativeOffset(_ input: String) -> Int? {
     let lower = input.lowercased().trimmingCharacters(in: .whitespaces)
 
-    // Compound: 1h30m, 1h:30m, 2h15m, etc.
-    let compoundPattern = #"^(\d+)h[:\s]?(\d+)m$"#
-    if let compoundRegex = try? NSRegularExpression(pattern: compoundPattern, options: []),
-       let match = compoundRegex.firstMatch(in: lower, range: NSRange(lower.startIndex..., in: lower)),
-       match.numberOfRanges == 3 {
-        let hoursRange = Range(match.range(at: 1), in: lower)!
-        let minsRange = Range(match.range(at: 2), in: lower)!
-        let hours = Int(lower[hoursRange]) ?? 0
-        let mins = Int(lower[minsRange]) ?? 0
-        let totalSeconds = (hours * 3600) + (mins * 60)
-        if totalSeconds > 0 {
-            return Int(Date().timeIntervalSince1970) + totalSeconds
+    // Weeks
+    if lower.hasSuffix("w"), lower.filter({ $0 == "w" }).count == 1 {
+        let numStr = lower.dropLast().trimmingCharacters(in: .whitespaces)
+        if let num = Int(numStr) {
+            return Int(Date().timeIntervalSince1970) + (num * 604800)
         }
     }
 
-    // Simple: 5m, 2h, 1d, 1w
-    let simplePattern = #"^(\d+)([mhdw])$"#
-    if let simpleRegex = try? NSRegularExpression(pattern: simplePattern, options: []),
-       let match = simpleRegex.firstMatch(in: lower, range: NSRange(lower.startIndex..., in: lower)),
-       match.numberOfRanges == 3 {
-        let numRange = Range(match.range(at: 1), in: lower)!
-        let unitRange = Range(match.range(at: 2), in: lower)!
-        let num = Int(lower[numRange]) ?? 0
-        let unit = String(lower[unitRange])
-
-        var seconds = 0
-        switch unit {
-        case "m": seconds = num * 60
-        case "h": seconds = num * 3600
-        case "d": seconds = num * 86400
-        case "w": seconds = num * 604800
-        default: break
+    // Days/Hours/Minutes (e.g., "1d 10h", "1h30m", "5m")
+    let pattern = #"^(?:(\d+)d)?[:\s]*(?:(\d+)h)?[:\s]*(?:(\d+)m)?$"#
+    if let regex = try? NSRegularExpression(pattern: pattern, options: []),
+       let match = regex.firstMatch(in: lower, range: NSRange(lower.startIndex..., in: lower)) {
+        
+        let daysRange = match.range(at: 1)
+        let hoursRange = match.range(at: 2)
+        let minsRange = match.range(at: 3)
+        
+        var totalSeconds = 0
+        
+        if daysRange.location != NSNotFound, let r = Range(daysRange, in: lower), let d = Int(lower[r]) {
+            totalSeconds += d * 86400
         }
-
-        if seconds > 0 {
-            return Int(Date().timeIntervalSince1970) + seconds
+        if hoursRange.location != NSNotFound, let r = Range(hoursRange, in: lower), let h = Int(lower[r]) {
+            totalSeconds += h * 3600
+        }
+        if minsRange.location != NSNotFound, let r = Range(minsRange, in: lower), let m = Int(lower[r]) {
+            totalSeconds += m * 60
+        }
+        
+        if totalSeconds > 0 {
+            return Int(Date().timeIntervalSince1970) + totalSeconds
         }
     }
 
@@ -202,6 +197,14 @@ func parseCaptureInput(_ raw: String) -> CaptureDraft? {
         // due: token (for simple values like due:5m, due:1h, due:tomorrow)
         if lower.hasPrefix("due:") && dueDateRaw == nil {
             let rawDue = String(token.dropFirst(4)).trimmingCharacters(in: .whitespacesAndNewlines)
+            if !rawDue.isEmpty {
+                dueDateRaw = rawDue
+            }
+            continue
+        }
+        // : token shorthand (alias for due:, like :tomorrow or :5m)
+        if lower.hasPrefix(":") && !lower.hasPrefix("::") && lower.count > 1 && dueDateRaw == nil {
+            let rawDue = String(token.dropFirst(1)).trimmingCharacters(in: .whitespacesAndNewlines)
             if !rawDue.isEmpty {
                 dueDateRaw = rawDue
             }
