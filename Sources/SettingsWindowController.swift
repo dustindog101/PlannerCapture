@@ -179,6 +179,12 @@ struct SettingsView: View {
 
     private var diagnosticsTab: some View {
         Form {
+            LabeledContent("Version") {
+                Text(AppInfo.displayVersion)
+                    .foregroundStyle(.secondary)
+                    .font(.system(.body, design: .monospaced))
+            }
+
             Picker("Log level", selection: $logLevel) {
                 ForEach(LogLevel.allCases) { level in
                     Text(level.label).tag(level)

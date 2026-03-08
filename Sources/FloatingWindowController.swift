@@ -83,7 +83,7 @@ struct FloatingInputView: View {
 
     var body: some View {
         VStack(spacing: 4) {
-            TextField("Capture task… examples: test task  |  ! call mechanic :: ask for rates  |  /done submit form  |  #p4 study", text: $text)
+            TextField("Capture task… examples: !call mechanic|5m  |  task :: notes  |  /done submit  |  #p4 study  |  task due:1h", text: $text)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.system(size: 22, weight: .regular))
                 .padding(.horizontal)
@@ -110,7 +110,8 @@ struct FloatingInputView: View {
                             isStarred: parsed.isStarred,
                             status: parsed.statusOverride,
                             source: "menubar_capture",
-                            groupId: groupId
+                            groupId: groupId,
+                            dueAt: parsed.dueAt
                         )
                         PlannerLogger.shared.log(.info, "Capture submitted", metadata: ["title": parsed.title])
                         text = ""
@@ -121,7 +122,7 @@ struct FloatingInputView: View {
                     isFocused = true
                 }
 
-            Text("Default plain entry goes to Waiting. Shortcuts: !, #p0-#p4, #star, #g:<group>, :: notes, /done, /todo, /inbox, /blocked, /inprogress, /archived")
+            Text("Shortcuts: !, #p0-#p4, #star, #g:<group>, :: notes, |5m or due:1h, /done, /todo, /inbox, /blocked, /inprogress, /archived")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .padding(.horizontal)

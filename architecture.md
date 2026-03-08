@@ -58,8 +58,8 @@ PlannerCapture/
 ### 1) Capture flow
 1. User presses `Cmd+Shift+Space`.
 2. `GlobalHotkey` callback opens `FloatingWindowController`.
-3. Input parsed by `parseCaptureInput(_:)` in [`Sources/FloatingWindowController.swift`](./Sources/FloatingWindowController.swift).
-4. Parsed payload forwarded to `TaskStore.shared.addTask(...)`.
+3. Input parsed by `parseCaptureInput(_:)` in [`Sources/CaptureParser.swift`](./Sources/CaptureParser.swift) (extracts status, priority, group, and **due dates** via relative/natural language logic).
+4. Parsed payload forwarded to `TaskStore.shared.addTask(...)` including `dueAt` metadata.
 5. `TaskStore` calls `GatewayClient.createTask(...)`.
 6. On success, `TaskStore` updates local task list/sections and optionally mirrors to CLI (`CLIWrapper`) when `mirrorCLI` is enabled.
 

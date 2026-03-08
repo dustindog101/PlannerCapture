@@ -5,12 +5,8 @@ PlannerCapture is a native macOS menubar + planner app for fast task capture and
 ## Key Features
 
 - Global hotkey capture (`Cmd+Shift+Space`) via floating input panel.
-- Capture command parsing for status, priority, star, notes, and group assignment.
-- Menubar popover with connection state and quick task actions.
-- Full planner window with sectioned task list and inspector editing.
-- In-app group management (add/rename/remove/archive).
-- Settings UI for sync, views, defaults, and diagnostics.
-- Request-correlated persistent logs for troubleshooting.
+- Capture command parsing for status, priority, star, notes, group assignment, and **inline due dates**.
+- Automated logic-integration testing suite (20 tests).
 
 ## Documentation Map
 
@@ -18,6 +14,7 @@ PlannerCapture is a native macOS menubar + planner app for fast task capture and
 - [System architecture](./architecture.md)
 - [Product spec](./SPEC.md)
 - [Roadmap](./ROADMAP.md)
+- [Versioning workflow](./VERSIONING.md)
 - [Progress log](./progress.md)
 - [Testing strategy](./testing-strategy.md)
 - [AI agent rules](./CLAUDE.md)
@@ -73,14 +70,16 @@ Inside the hotkey popup:
 - `/blocked <title>` or `/block <title>`: blocked task.
 - `/inprogress <title>`: in-progress task.
 - `/archived <title>`: archived task.
+- `|`: split `content | due date` (absolute, relative, or natural language).
+- `due:<val>`: inline due date token (no spaces).
 - `#g:<group-name>`: assign to existing group.
 
 Examples:
-- `test task`
-- `! call mechanic :: ask for quote`
-- `#p4 study for monday exam :: review chapter 3`
-- `/done submit article review`
-- `/inbox review lecture slides #g:School`
+- `! call mechanic | 5m`: high priority, due in 5 minutes.
+- `Read book | tomorrow night`: due tomorrow night.
+- `Meeting | 03/10 11:59pm`: specific calendar date.
+- `Groceries due:1h :: remember eggs`: inline token with notes.
+- `/inbox review slides #g:School | Friday 2pm`: full power capture.
 
 ## Configuration and Environment
 
@@ -94,33 +93,33 @@ Log file location:
 
 ### Runtime Settings / "Env" Table
 
-| Key | Purpose | Example | Required |
-|---|---|---|---|
-| `gatewayURL` | Hub API base URL | `http://127.0.0.1:8765` | Yes |
-| `apiToken` | Optional Bearer token | `abc123` | No |
-| `pollVisibleSec` | Poll interval when popover visible | `3` | Yes |
-| `pollHiddenSec` | Poll interval when popover hidden | `15` | Yes |
-| `defaultStatusRaw` | Default status for created tasks | `inbox` | Yes |
-| `immediateOverrideEnabled` | Star/high-priority immediate bucketing | `true` | Yes |
-| `mirrorCLI` | Mirror new tasks to planner CLI | `false` | No |
-| `logLevelRaw` | Minimum log level | `info` | Yes |
-| `showDoneSection` | Show/hide done section | `true` | Yes |
-| `showWaitingSection` | Show/hide waiting section | `true` | Yes |
-| `defaultSortModeRaw` | Default sorting behavior | `smart` | Yes |
-| `defaultGroupViewRaw` | Grouping layout mode | `bucket` | Yes |
-| `starClickImmediateSave` | Immediate star persistence toggle | `true` | Yes |
-| `compactRowDensity` | Task row compact density | `false` | No |
-| `defaultGroupId` | Default group for new tasks | `<group-id>` | No |
-| `visibleGroupIds` | Filtered visible groups | `group1,group2` | No |
-| `newUIEnabled` | Toggle modern planner UI | `true` | Yes |
+| Key                        | Purpose                                | Example                 | Required |
+| -------------------------- | -------------------------------------- | ----------------------- | -------- |
+| `gatewayURL`               | Hub API base URL                       | `http://127.0.0.1:8765` | Yes      |
+| `apiToken`                 | Optional Bearer token                  | `abc123`                | No       |
+| `pollVisibleSec`           | Poll interval when popover visible     | `3`                     | Yes      |
+| `pollHiddenSec`            | Poll interval when popover hidden      | `15`                    | Yes      |
+| `defaultStatusRaw`         | Default status for created tasks       | `inbox`                 | Yes      |
+| `immediateOverrideEnabled` | Star/high-priority immediate bucketing | `true`                  | Yes      |
+| `mirrorCLI`                | Mirror new tasks to planner CLI        | `false`                 | No       |
+| `logLevelRaw`              | Minimum log level                      | `info`                  | Yes      |
+| `showDoneSection`          | Show/hide done section                 | `true`                  | Yes      |
+| `showWaitingSection`       | Show/hide waiting section              | `true`                  | Yes      |
+| `defaultSortModeRaw`       | Default sorting behavior               | `smart`                 | Yes      |
+| `defaultGroupViewRaw`      | Grouping layout mode                   | `bucket`                | Yes      |
+| `starClickImmediateSave`   | Immediate star persistence toggle      | `true`                  | Yes      |
+| `compactRowDensity`        | Task row compact density               | `false`                 | No       |
+| `defaultGroupId`           | Default group for new tasks            | `<group-id>`            | No       |
+| `visibleGroupIds`          | Filtered visible groups                | `group1,group2`         | No       |
+| `newUIEnabled`             | Toggle modern planner UI               | `true`                  | Yes      |
 
 ## Available Commands
 
-| Command | What it does |
-|---|---|
-| `./build.sh` | Builds `PlannerCapture.app` and compiles all Swift sources |
-| `open PlannerCapture.app` | Launches PlannerCapture |
-| `curl http://127.0.0.1:8765/v1/tasks` | Quick gateway health/data check |
+| Command                               | What it does                                               |
+| ------------------------------------- | ---------------------------------------------------------- |
+| `./build.sh`                          | Builds `PlannerCapture.app` and compiles all Swift sources |
+| `open PlannerCapture.app`             | Launches PlannerCapture                                    |
+| `curl http://127.0.0.1:8765/v1/tasks` | Quick gateway health/data check                            |
 
 ## Project Structure (Quick View)
 

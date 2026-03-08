@@ -9,7 +9,8 @@ extension TaskStore {
         status: TaskStatus? = nil,
         source: String = "menubar",
         groupId: String? = nil,
-        sourceRef: String? = nil
+        sourceRef: String? = nil,
+        dueAt: Int? = nil
     ) {
         let resolvedStatus = status ?? SettingsStore.shared.settings.defaultStatus
         let resolvedGroup = groupId ?? SettingsStore.shared.settings.defaultGroupId
@@ -21,7 +22,8 @@ extension TaskStore {
             isStarred: isStarred,
             source: source,
             groupId: resolvedGroup,
-            sourceRef: sourceRef
+            sourceRef: sourceRef,
+            dueAt: dueAt
         ) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self else { return }

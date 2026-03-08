@@ -28,6 +28,10 @@
       "inputs" : [
         {
           "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/AppInfo.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift"
         },
         {
@@ -107,6 +111,7 @@
       "moduleName" : "PlannerCapture",
       "moduleOutputPath" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/Modules/PlannerCapture.swiftmodule",
       "objects" : [
+        "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.swift.o",
         "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o",
         "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CaptureParser.swift.o",
         "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/FloatingWindowController.swift.o",
@@ -186,6 +191,10 @@
       "outputs" : [
         {
           "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o"
         },
         {
@@ -259,6 +268,7 @@
       ],
       "prepareForIndexing" : false,
       "sources" : [
+        "/Users/king/coding/projects/PlannerCapture/Sources/AppInfo.swift",
         "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift",
         "/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift",
         "/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift",
@@ -535,6 +545,7 @@
       "-package-name",
       "plannercapture",
       "-c",
+      "/Users/king/coding/projects/PlannerCapture/Sources/AppInfo.swift",
       "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift",
       "/Users/king/coding/projects/PlannerCapture/Sources/CaptureParser.swift",
       "/Users/king/coding/projects/PlannerCapture/Sources/FloatingWindowController.swift",
@@ -807,6 +818,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/Sources/AppInfo.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift"
         },
         {
@@ -882,6 +897,10 @@
         {
           "kind" : "virtual",
           "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.swift.o"
         },
         {
           "kind" : "file",
@@ -974,6 +993,10 @@
         {
           "kind" : "virtual",
           "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.swift.o"
         },
         {
           "kind" : "file",

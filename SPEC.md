@@ -57,6 +57,7 @@ Supported command behavior:
 - Priority/star tokens: leading `!`, `#p0..#p4`, `#star`, `*`.
 - Notes separator: `::`.
 - Group token: `#g:<name>`.
+- **Due date parsing**: `|` separator (e.g., `task|5m`) or `due:<val>` token. Support for relative offsets, absolute times, and natural language.
 
 Acceptance criteria:
 - Unknown slash command does not fail capture; treated as plain title and warning logged.
@@ -116,29 +117,29 @@ Acceptance criteria:
 ## `PlannerTask`
 Source: `Sources/Models.swift`
 
-| Field | Type | Notes |
-|---|---|---|
-| `id` | `String` | Required identifier |
-| `title` | `String` | Defaults to `Untitled task` if missing |
-| `notes` | `String` | Optional text |
-| `status` | `TaskStatus` | `inbox`, `todo`, `in_progress`, `blocked`, `done`, `archived` |
-| `priority` | `Int` | Normalized to 0..4 on writes |
-| `isStarred` | `Bool` | Decodes from bool or int |
-| `source` | `String` | Source attribution (`menubar`, `menubar_capture`, etc.) |
-| `sourceRef` | `String` | External/source reference |
-| `groupId` | `String?` | Optional group association |
-| `dueAt` | `Int?` | Unix timestamp |
-| `updatedAt` | `Int` | Unix timestamp |
+| Field       | Type         | Notes                                                         |
+| ----------- | ------------ | ------------------------------------------------------------- |
+| `id`        | `String`     | Required identifier                                           |
+| `title`     | `String`     | Defaults to `Untitled task` if missing                        |
+| `notes`     | `String`     | Optional text                                                 |
+| `status`    | `TaskStatus` | `inbox`, `todo`, `in_progress`, `blocked`, `done`, `archived` |
+| `priority`  | `Int`        | Normalized to 0..4 on writes                                  |
+| `isStarred` | `Bool`       | Decodes from bool or int                                      |
+| `source`    | `String`     | Source attribution (`menubar`, `menubar_capture`, etc.)       |
+| `sourceRef` | `String`     | External/source reference                                     |
+| `groupId`   | `String?`    | Optional group association                                    |
+| `dueAt`     | `Int?`       | Unix timestamp                                                |
+| `updatedAt` | `Int`        | Unix timestamp                                                |
 
 ## `TaskGroup`
 
-| Field | Type | Notes |
-|---|---|---|
-| `id` | `String` | Group ID |
-| `name` | `String` | Display name |
-| `color` | `String` | Gateway-provided color label |
-| `sortOrder` | `Int` | Ordering hint |
-| `archivedAt` | `Int?` | Archived marker |
+| Field        | Type     | Notes                        |
+| ------------ | -------- | ---------------------------- |
+| `id`         | `String` | Group ID                     |
+| `name`       | `String` | Display name                 |
+| `color`      | `String` | Gateway-provided color label |
+| `sortOrder`  | `Int`    | Ordering hint                |
+| `archivedAt` | `Int?`   | Archived marker              |
 
 ## `PlannerSettings`
 
@@ -172,7 +173,7 @@ Endpoints:
 - `GET /v1/meta/seq` → `{ "latest_seq": Int }`
 - `GET /v1/tasks?limit=<n>` → `{ "tasks": [...], "latest_seq": Int }`
 - `POST /v1/tasks` with fields:
-  - `title`, `notes`, `status`, `priority`, `is_starred`, `source`, `group_id`, `source_ref`
+  - `title`, `notes`, `status`, `priority`, `is_starred`, `source`, `group_id`, `source_ref`, `due_at`
 - `PATCH /v1/tasks/{id}` with task patch fields
 - `POST /v1/tasks/{id}/complete`
 - `POST /v1/tasks/{id}/archive`

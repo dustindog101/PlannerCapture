@@ -151,6 +151,7 @@ final class GatewayClient {
         source: String,
         groupId: String?,
         sourceRef: String?,
+        dueAt: Int? = nil,
         completion: @escaping (Result<(task: PlannerTask, latestSeq: Int), GatewayError>) -> Void
     ) {
         let payload: [String: Any] = [
@@ -161,7 +162,8 @@ final class GatewayClient {
             "is_starred": isStarred ? 1 : 0,
             "source": source,
             "group_id": groupId as Any,
-            "source_ref": sourceRef as Any
+            "source_ref": sourceRef as Any,
+            "due_at": dueAt as Any
         ]
         requestJSON(path: "/v1/tasks", method: "POST", payload: payload, responseType: TaskResponse.self) { result in
             completion(result.map { ($0.task, $0.latestSeq) })

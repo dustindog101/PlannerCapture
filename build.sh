@@ -5,6 +5,19 @@ APP_DIR="$APP_NAME.app"
 BIN_DIR="$APP_DIR/Contents/MacOS"
 RES_DIR="$APP_DIR/Contents/Resources"
 
+# --- Version resolution ---
+# Public version: read from VERSION file (e.g. 3.1.0)
+APP_VERSION=$(cat VERSION 2>/dev/null | tr -d '[:space:]')
+if [ -z "$APP_VERSION" ]; then
+    echo "Warning: VERSION file missing or empty; defaulting to 0.0.0"
+    APP_VERSION="0.0.0"
+fi
+
+# Build number: auto-generated from total git commit count
+BUILD_NUMBER=$(git rev-list --count HEAD 2>/dev/null || echo "0")
+
+echo "Building $APP_NAME v$APP_VERSION (build $BUILD_NUMBER)..."
+
 mkdir -p "$BIN_DIR"
 mkdir -p "$RES_DIR"
 
@@ -23,14 +36,17 @@ cat <<EOF > "$APP_DIR/Contents/Info.plist"
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0</string>
+    <string>$APP_VERSION</string>
+    <key>CFBundleVersion</key>
+    <string>$BUILD_NUMBER</string>
+    <key>CFBundleGetInfoString</key>
+    <string>PlannerCapture $APP_VERSION (build $BUILD_NUMBER)</string>
     <key>LSUIElement</key>
     <true/>
 </dict>
 </plist>
 EOF
 
-echo "Compiling Swift files..."
 swiftc Sources/*.swift -o "$BIN_DIR/$APP_NAME"
 if [ $? -eq 0 ]; then
     echo "Successfully built $APP_DIR"

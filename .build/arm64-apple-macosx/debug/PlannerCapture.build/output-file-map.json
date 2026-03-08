@@ -2,6 +2,13 @@
   "": {
     "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/master.swiftdeps"
   },
+  "/Users/king/coding/projects/PlannerCapture/Sources/AppInfo.swift": {
+    "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.d",
+    "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.swift.o",
+    "swiftmodule": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo~partial.swiftmodule",
+    "swift-dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.swiftdeps",
+    "diagnostics": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/AppInfo.dia"
+  },
   "/Users/king/coding/projects/PlannerCapture/Sources/CLIWrapper.swift": {
     "dependencies": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.d",
     "object": "/Users/king/coding/projects/PlannerCapture/.build/arm64-apple-macosx/debug/PlannerCapture.build/CLIWrapper.swift.o",

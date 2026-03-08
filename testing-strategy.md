@@ -2,9 +2,9 @@
 
 ## Current State
 
-- No automated tests are currently checked into this repository.
-- No XCTest target, UI test target, or CI workflow is present.
-- Quality is currently validated manually by running the app and observing behavior against the hub gateway.
+- Automated unit and integration tests are implemented using **XCTest**.
+- 20 tests currently cover capture parsing, sectioning logic, and gateway sync integration.
+- Quality is validated via `swift test` and manual checks against the hub gateway.
 
 ## Testing Frameworks
 
@@ -35,16 +35,19 @@ Until automation is added, validate:
 - Group create/rename/remove updates section rendering.
 - Settings save/reload effects on behavior (polling, grouping, sorting, visibility).
 
-## How to Run Tests (Target State)
+## How to Run Tests
 
-After adding XCTest targets:
+Tests are integrated into the Swift Package. Run them via the Swift CLI:
 
 ```bash
-# Example when an Xcode project or SwiftPM package target exists
-xcodebuild test -scheme PlannerCapture -destination 'platform=macOS'
+# Run all tests
+swift test
+
+# Run specific parsing tests
+swift test --filter ParseCaptureInputTests
 ```
 
-⚠️ `xcodebuild test` is not currently runnable from this repo shape because no test project/target is defined yet.
+⚠️ Note: If you encounter permission errors with the standard cache directory, you can override it with `TMPDIR=/tmp swift test`.
 
 ## Test File Location Conventions (Proposed)
 

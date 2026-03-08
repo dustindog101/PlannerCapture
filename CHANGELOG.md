@@ -13,6 +13,15 @@
 - Lightweight macOS material polish in menubar and manager surfaces.
 - Expanded settings for section visibility, sort mode, group view mode, and row density.
 
+## v3.1
+
+- Inline due date parsing in capture surface using `|` separator or `due:` token.
+- Support for relative offsets (`5m`, `2h`, `1d`, `1w`, `1h30m`).
+- Natural language and absolute date/time parsing via `NSDataDetector`.
+- Smart rolling for past dates (bumps to tomorrow/next year).
+- Graceful degradation for unrecognized dates (stored in task notes).
+- Introduced automated unit testing suite with 20 initial tests.
+
 ## v3
 
 - Group-aware task model with `group_id` support.
